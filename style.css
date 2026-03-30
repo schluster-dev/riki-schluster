@@ -173,3 +173,86 @@ input::placeholder, textarea::placeholder {
     h1 { font-size: 3rem !important; }
     .rpg-font { font-size: 0.55rem; }
 }
+
+/* --- ADDED: DOWNLOAD BUTTON (SYSTEM MANIFEST) --- */
+.btn-manifest {
+    position: relative;
+    overflow: hidden;
+    background: rgba(0, 242, 255, 0.05);
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn-manifest:hover {
+    background: rgba(0, 242, 255, 0.15);
+    border-color: var(--neon-cyan);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.btn-manifest:active {
+    transform: translateY(-1px);
+}
+
+/* Efek Kilatan (Shimmer) untuk Tombol */
+.shimmer-bar {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: none;
+}
+
+.btn-manifest:hover .shimmer-bar {
+    animation: shimmer-run 1.5s infinite;
+}
+
+@keyframes shimmer-run {
+    0% { left: -100%; }
+    100% { left: 150%; }
+}
+
+/* --- ADDED: SKILL TREE BAR ENHANCEMENT --- */
+.skill-track {
+    height: 6px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skill-fill {
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 10px currentColor; /* Mengikuti warna teks parent */
+}
+
+/* --- ADDED: SPECIAL UTILITIES --- */
+.tracking-tighter-2 {
+    letter-spacing: -0.05em;
+}
+
+.text-8px {
+    font-size: 8px;
+}
+
+/* Tambahkan Glow pada angka statistik */
+.stat-value {
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
