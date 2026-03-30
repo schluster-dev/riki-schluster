@@ -256,3 +256,32 @@ input::placeholder, textarea::placeholder {
     font-family: 'Orbitron', sans-serif;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
+/* --- SCHLUSTER ARCHIVES VISUAL ENGINE --- */
+
+/* Memastikan aspect ratio gambar konsisten di semua browser */
+.aspect-\[16\/10\] {
+    position: relative;
+    padding-bottom: 62.5%; /* 10 / 16 = 0.625 */
+    height: 0;
+    overflow: hidden;
+}
+
+.aspect-\[16\/10\] img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+}
+
+/* Penajaman filter grayscale saat hover */
+.group:hover img {
+    filter: grayscale(0%) brightness(110%);
+}
+
+/* Transisi overlay teks yang lebih dramatis (translate-y) */
+.group .translate-y-10 {
+    transform: translateY(2rem); /* translate-y-8 setara dengan 2rem */
+}
+
+.group:hover .translate-y-0 {
+    transform: translateY(0);
+}
