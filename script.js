@@ -1,14 +1,20 @@
 const canvas = document.getElementById('space-canvas');
 const ctx = canvas.getContext('2d');
 
-let entities = [];
+let stars = [];
+const starCount = 150;
 
-function initCanvas() {
+// Menyesuaikan ukuran canvas ke layar penuh
+function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
 
-class SpaceObject {
+window.addEventListener('resize', resize);
+resize();
+
+// Membuat objek bintang
+class Star {
     constructor() {
         this.reset();
     }
@@ -16,84 +22,54 @@ class SpaceObject {
     reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 30 + 10;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.speedY = (Math.random() - 0.5) * 0.4;
-        // Warna mengambil dari variabel CSS kamu
-        this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe'; 
-        this.type = Math.floor(Math.random() * 3); 
-        this.opacity = Math.random() * 0.4 + 0.1;
+        this.size = Math.random() * 2;
+        this.speed = Math.random() * 0.5 + 0.2;
+        this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe'; // Sesuai tema Cyan & Purple
     }
 
     update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < -50 || this.x > canvas.width + 50 || this.y < -50 || this.y > canvas.height + 50) {
-            this.reset();
-        }
+        this.y -= this.speed; // Gerak ke atas
+        if (this.y < 0) this.reset();
     }
 
     draw() {
-        ctx.globalAlpha = this.opacity;
         ctx.fillStyle = this.color;
-
-        if (this.type === 0) { // Bintang Pixel
-            ctx.fillRect(this.x, this.y, 2, 2);
-        } else if (this.type === 1) { // Planet
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.strokeStyle = this.color;
-            ctx.beginPath(); // Ring planet
-            ctx.ellipse(this.x, this.y, this.size, this.size/4, Math.PI/4, 0, Math.PI * 2);
-            ctx.stroke();
-        } else { // Alien / Entitas Dorman
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y - this.size/2);
-            ctx.lineTo(this.x + this.size/2, this.y);
-            ctx.lineTo(this.x, this.y + this.size/2);
-            ctx.lineTo(this.x - this.size/2, this.y);
-            ctx.closePath();
-            ctx.fill();
-        }
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 
-function setup() {
-    initCanvas();
-    entities = [];
-    for (let i = 0; i < 15; i++) {
-        entities.push(new SpaceObject());
+// Inisialisasi bintang
+for (let i = 0; i < starCount; i++) {
+    stars.push(new Star());
+}
+
+// Tambahan Efek Typewriter (Menghidupkan teks yang kosong tadi)
+const textElement = document.getElementById('typewriter-action');
+const bioText = "Membangun jembatan antara efisiensi birokrasi dan kreativitas digital. Spesialis dalam arsitektur sistem kearsipan dan pengembangan visual interaktif.";
+let charIndex = 0;
+
+function typeWriter() {
+    if (charIndex < bioText.length) {
+        textElement.innerHTML += bioText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, 40);
     }
 }
 
+// Loop Animasi
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    entities.forEach(ent => {
-        ent.update();
-        ent.draw();
+    stars.forEach(star => {
+        star.update();
+        star.draw();
     });
     requestAnimationFrame(animate);
 }
 
-// Efek Mengetik (Typewriter)
-const textElement = document.getElementById('typewriter-action');
-const message = "Digital Architect & ASN Operator yang berdedikasi pada optimasi sistem kearsipan dan infrastruktur IT. Fokus pada automasi dan persistensi digital.";
-let charIndex = 0;
-
-function typeWriter() {
-    if (charIndex < message.length) {
-        textElement.innerHTML += message.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeWriter, 50);
-    }
-}
-
-window.addEventListener('load', () => {
-    setup();
-    animate();
-    typeWriter();
-});
-
-window.addEventListener('resize', initCanvas);
+// Jalankan semuanya
+animate();
+typeWriter();
