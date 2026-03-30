@@ -1,6 +1,7 @@
-/* --- SCHLUSTER.OS v2.1 - SOCIAL ICON FIX --- */
+/* --- CUSTOM FONTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@300;400;600;700&display=swap');
 
+/* --- CORE VARIABLES --- */
 :root {
     --neon-cyan: #00f2ff;
     --neon-purple: #bc13fe;
@@ -10,16 +11,20 @@
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-/* --- BASE & ANTI-SCROLL --- */
+/* --- BASE STYLING (GLOBAL FIX) --- */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* Mencegah elemen keluar batas layar */
+    max-width: 100vw;
 }
 
 html, body {
     background-color: var(--bg-dark);
-    overflow-x: hidden; /* Ini kunci agar tidak scroll samping */
+    max-width: 100%;
+    overflow-x: hidden; /* Anti scroll samping */
+    position: relative;
     width: 100%;
 }
 
@@ -27,38 +32,29 @@ body {
     background: transparent !important; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
-    position: relative;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    min-height: 100vh;
     z-index: 1;
 }
 
-/* --- CANVAS BACKGROUND --- */
+/* --- FORCE TRANSPARENCY (CANVAS VISIBILITY) --- */
+main, section, #experience, #skills, #education, #archives, nav, footer, 
+.container, .max-w-6xl, .relative, .grid {
+    background-color: transparent !important;
+}
+
+/* --- FIX CANVAS (THE REAL BACKGROUND) --- */
 #space-canvas {
     position: fixed !important;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: -1 !important;
+    z-index: -1 !important; 
+    display: block;
+    pointer-events: none;
     background-color: var(--bg-dark) !important;
-}
-
-/* --- GLASSMORPHISM & SOCIAL FIX --- */
-.glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border: 1px solid var(--glass-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Mencegah icon sosial media memanjang di mobile */
-.flex.gap-4 .glass, 
-nav .glass,
-footer .glass {
-    flex-shrink: 0 !important; /* Jangan biarkan menciut/memanjang */
-    aspect-ratio: 1 / 1; /* Paksa tetap kotak sempurna */
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* --- TYPOGRAPHY --- */
@@ -69,74 +65,180 @@ footer .glass {
 
 .neon-text {
     color: var(--neon-cyan);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
 }
 
-/* --- ANIMATIONS --- */
-@keyframes bars {
-    0%, 100% { height: 10px; opacity: 0.5; }
-    50% { height: 30px; opacity: 1; }
+/* --- GLASSMORPHISM --- */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
-.animate-bars { animation: bars 1.2s infinite ease-in-out; }
 
-/* --- MANIFEST BUTTON --- */
+.glass:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(0, 242, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* --- UI ELEMENTS & BUTTONS --- */
+.rpg-border {
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    position: relative;
+}
+
+.h-1 div {
+    position: relative;
+    border-radius: 2px;
+    transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1);
+}
+
 .btn-manifest {
     position: relative;
     overflow: hidden;
     background: rgba(0, 242, 255, 0.05);
     border: 1px solid rgba(0, 242, 255, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    z-index: 10;
+}
+
+.btn-manifest:hover {
+    background: rgba(0, 242, 255, 0.15);
+    border-color: var(--neon-cyan);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+/* --- ARCHIVES VISUAL ENGINE --- */
+.aspect-\[16\/10\] {
+    position: relative;
+    padding-bottom: 62.5%; 
+    height: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.aspect-\[16\/10\] img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+}
+
+.group:hover img {
+    filter: grayscale(0%) brightness(110%);
+}
+
+.group .translate-y-10 {
+    transform: translateY(2rem);
+}
+
+.group:hover .translate-y-0 {
+    transform: translateY(0);
+}
+
+.group:hover {
+    box-shadow: 0 0 25px rgba(0, 242, 255, 0.1);
+}
+
+/* --- ANIMATIONS & EFFECTS --- */
+@keyframes bars {
+    0%, 100% { height: 10px; opacity: 0.5; }
+    50% { height: 30px; opacity: 1; }
+}
+
+.animate-bars { animation: bars 1.2s infinite ease-in-out; }
+
+@keyframes scanline {
+    0% { bottom: 100%; }
+    100% { bottom: -100%; }
+}
+
+.scanline {
+    width: 100%; height: 100px; z-index: 99;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0) 100%);
+    opacity: 0.1; position: absolute; bottom: 100%;
+    animation: scanline 8s linear infinite;
+}
+
+@keyframes shimmer-run {
+    0% { left: -100%; }
+    100% { left: 150%; }
 }
 
 .shimmer-bar {
-    position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
     transform: skewX(-25deg);
 }
+
 .btn-manifest:hover .shimmer-bar { animation: shimmer-run 1.5s infinite; }
-@keyframes shimmer-run { 0% { left: -100%; } 100% { left: 150%; } }
 
-/* --- ARCHIVES --- */
-.aspect-\[16\/10\] {
-    position: relative; padding-bottom: 62.5%; height: 0; overflow: hidden;
-}
-.aspect-\[16\/10\] img {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+/* --- TYPEWRITER & FORMS --- */
+#typewriter-action {
+    display: block !important; 
+    text-align: left !important;
+    position: relative;
+    min-height: 100px; 
+    height: auto;
+    width: 100%;
+    font-size: 1.1rem;
 }
 
-/* --- RESPONSIVE FIX (MOBILE ONLY) --- */
+input, textarea {
+    font-family: 'Rajdhani', sans-serif;
+    color: white !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* --- UTILITIES --- */
+.skill-track { height: 6px; width: 100%; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+.skill-fill { height: 100%; border-radius: 10px; box-shadow: 0 0 10px currentColor; }
+.stat-value { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 15px rgba(255,255,255,0.2); }
+
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 10px; box-shadow: 0 0 10px var(--neon-cyan); }
+
+/* --- RESPONSIVE OPTIMIZATION (MOBILE & TABLET) --- */
 @media (max-width: 768px) {
     h1 { 
         font-size: 2.2rem !important; 
         line-height: 1.1;
+        letter-spacing: -0.05em;
+        word-break: break-word;
     }
 
-    /* Memastikan container tidak menekan konten ke samping */
-    .container {
-        padding-left: 1.25rem !important;
-        padding-right: 1.25rem !important;
+    main {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    h4.text-xl { font-size: 1rem !important; }
+    p.text-sm { font-size: 0.75rem !important; }
+    .rpg-font { font-size: 0.45rem !important; }
+
+    /* Mencegah overflow pada elemen glass */
+    .glass {
         width: 100% !important;
-        max-width: 100vw !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
-    /* Social Icons Tetap Kotak & Sejajar */
-    .flex.gap-4 {
-        justify-content: center; /* Rata tengah di mobile agar rapi */
-        flex-wrap: nowrap !important; /* Jangan biarkan turun ke bawah */
-    }
+    .group .p-6 { padding: 1rem !important; }
+    .btn-manifest span { font-size: 6px !important; }
 
-    .flex.gap-4 a .glass {
-        width: 45px !important; /* Ukuran kotak tetap */
-        height: 45px !important;
-        padding: 0 !important; /* Hapus padding yang bikin memanjang */
-    }
-
-    /* Sembunyikan elemen dekorasi berat di mobile */
+    /* Sembunyikan elemen dekorasi yang memakan tempat di layar sempit */
     .animate-bars { display: none; }
 }
-
-/* Utility tambahan */
-.tracking-tighter-2 { letter-spacing: -0.05em; }
-.text-8px { font-size: 8px; }
-#typewriter-action { min-height: 80px; }
