@@ -7,7 +7,7 @@
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
-    --glass-bg: rgba(255, 255, 255, 0.01); /* Dibuat sangat tipis agar bintang tembus */
+    --glass-bg: rgba(255, 255, 255, 0.01);
     --glass-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -19,7 +19,8 @@
 }
 
 body {
-    background: var(--bg-dark); /* Dasar hitam hanya di body */
+    /* UBAH: background body menjadi transparan agar canvas di bawahnya terlihat */
+    background: transparent; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
     line-height: 1.6;
@@ -29,13 +30,11 @@ body {
     position: relative;
 }
 
-/* --- FORCE TRANSPARENCY (KUNCI TEMBUS PANDANG) --- */
-/* Ini memastikan tidak ada layer hitam di antara canvas dan kartu menu */
-main, section, #experience, nav, footer, .container, .max-w-6xl {
-    background: transparent !important;
+/* --- FORCE TRANSPARENCY (TAMBAHAN PENTING) --- */
+/* Memastikan tidak ada background hitam di elemen penampung yang menutupi bintang */
+main, section, #experience, nav, footer, .container, .max-w-6xl, .relative {
     background-color: transparent !important;
-    position: relative;
-    z-index: 10;
+    background-image: none !important;
 }
 
 /* --- TYPOGRAPHY --- */
@@ -51,15 +50,12 @@ main, section, #experience, nav, footer, .container, .max-w-6xl {
 
 /* --- GLASSMORPHISM (ULTRA TRANSPARENT) --- */
 .glass {
-    /* 0.003 = Sangat transparan (0.3%), hampir murni bening */
+    /* 0.003 = Sangat transparan agar bintang terlihat tajam */
     background: rgba(255, 255, 255, 0.003) !important; 
     
-    /* Blur tetap dipertahankan agar kesan 'kaca' tidak hilang */
-    /* Jika ingin lebih bening lagi, turunkan angka 12px ke 8px */
     backdrop-filter: blur(12px) saturate(150%);
     -webkit-backdrop-filter: blur(12px) saturate(150%);
     
-    /* Border diperhalus agar tidak terlalu kontras */
     border: 1px solid rgba(255, 255, 255, 0.03);
     
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -68,7 +64,6 @@ main, section, #experience, nav, footer, .container, .max-w-6xl {
 }
 
 .glass:hover {
-    /* Saat di-hover, baru kita munculkan sedikit warna agar user tahu itu tombol/kartu */
     background: rgba(255, 255, 255, 0.05) !important;
     border-color: rgba(0, 242, 255, 0.3);
 }
@@ -152,9 +147,11 @@ button[type="submit"] {
     left: 0;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: -1; /* Paling bawah */
+    z-index: -1; 
     display: block;
     pointer-events: none;
+    /* TAMBAHKAN: Warna hitam dasar dipindah ke canvas agar menjadi background paling belakang */
+    background: #050505; 
 }
 
 /* --- FIX TYPEWRITER ALIGNMENT --- */
