@@ -7,11 +7,12 @@
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
-    --glass-bg: rgba(255, 255, 255, 0.03); /* Settingan Awal */
+    /* Glass tetap solid (0.03) tapi tembus bintang */
+    --glass-bg: rgba(255, 255, 255, 0.03); 
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-/* --- BASE STYLING --- */
+/* --- BASE STYLING (BINTANG FIX) --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -23,13 +24,35 @@ html {
 }
 
 body {
-    background-color: var(--bg-dark);
+    /* PENTING: Body harus transparan agar bintang di canvas terlihat */
+    background: transparent !important; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- FORCE TRANSPARENCY --- */
+main, section, #experience, #skills, nav, footer, 
+.container, .max-w-6xl, .relative, .grid {
+    background-color: transparent !important;
+}
+
+/* --- FIX CANVAS (THE REAL BACKGROUND) --- */
+#space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -1 !important; /* Di belakang konten */
+    display: block;
+    pointer-events: none;
+    background-color: var(--bg-dark) !important; /* Warna hitam pindah ke sini */
 }
 
 /* --- TYPOGRAPHY --- */
@@ -52,7 +75,6 @@ body {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    z-index: 2;
 }
 
 .glass:hover {
@@ -85,11 +107,7 @@ body {
     animation: bars 1.2s infinite ease-in-out;
 }
 
-@keyframes pulse-glow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-}
-
+/* Efek Scanline */
 .scanline {
     width: 100%;
     height: 100px;
@@ -122,31 +140,6 @@ input::placeholder, textarea::placeholder {
     text-transform: uppercase;
 }
 
-button[type="submit"] {
-    cursor: pointer;
-    text-shadow: none;
-    transition: all 0.3s ease;
-}
-
-/* --- RESPONSIVE ADJUSTMENTS --- */
-@media (max-width: 768px) {
-    h1 { font-size: 3rem !important; }
-    .rpg-font { font-size: 0.55rem; }
-}
-
-/* --- FIX CANVAS --- */
-#space-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: -1 !important; 
-    display: block;
-    pointer-events: none;
-    background-color: var(--bg-dark);
-}
-
 /* --- TYPEWRITER ALIGNMENT --- */
 #typewriter-action {
     display: block !important; 
@@ -173,19 +166,10 @@ button[type="submit"] {
 ::-webkit-scrollbar-thumb { 
     background: var(--neon-cyan); 
     border-radius: 10px;
-    box-shadow: 0 0 10px var(--neon-cyan);
 }
 
-/* --- BUTTON NEON GLOW --- */
-.btn-neon {
-    border: 1px solid var(--neon-cyan);
-    color: var(--neon-cyan);
-    background: transparent;
-    transition: all 0.3s ease;
-}
-
-.btn-neon:hover {
-    background: var(--neon-cyan);
-    color: var(--bg-dark);
-    box-shadow: 0 0 20px var(--neon-cyan);
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    h1 { font-size: 3rem !important; }
+    .rpg-font { font-size: 0.55rem; }
 }
