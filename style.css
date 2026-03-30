@@ -7,12 +7,11 @@
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
-    /* Glass sangat tipis (0.1%) agar bintang tajam */
-    --glass-bg: rgba(255, 255, 255, 0.001); 
-    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.03); /* Settingan Awal */
+    --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-/* --- BASE STYLING (THE FOUNDATION) --- */
+/* --- BASE STYLING --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -24,58 +23,13 @@ html {
 }
 
 body {
-    /* PENTING: Body harus transparan total agar canvas di belakang terlihat */
-    background: transparent !important; 
+    background-color: var(--bg-dark);
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
     min-height: 100vh;
-    position: relative;
-    z-index: 1;
-}
-
-/* --- FORCE TRANSPARENCY (MENGHAPUS SEMUA LAYER HITAM) --- */
-/* Kode ini memaksa semua container Tailwind agar tidak menutupi bintang */
-main, section, #experience, nav, footer, 
-.container, .max-w-6xl, .relative, .grid,
-[class*="bg-slate"], [class*="bg-gray"], [class*="bg-black"], [class*="bg-zinc"] {
-    background-color: transparent !important;
-    background-image: none !important;
-}
-
-/* --- FIX CANVAS (AS THE REAL BACKGROUND) --- */
-#space-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    /* Dilempar ke paling belakang */
-    z-index: -1 !important; 
-    display: block;
-    pointer-events: none;
-    /* Warna hitam dasar dipindah ke sini */
-    background-color: var(--bg-dark) !important;
-}
-
-/* --- GLASSMORPHISM (ULTRA CLEAR) --- */
-.glass {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(10px) saturate(150%);
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
-    border: 1px solid var(--glass-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.glass:hover {
-    /* Saat hover baru muncul sedikit warna agar interaktif */
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(0, 242, 255, 0.3);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* --- TYPOGRAPHY --- */
@@ -87,6 +41,25 @@ main, section, #experience, nav, footer,
 .neon-text {
     color: var(--neon-cyan);
     text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
+}
+
+/* --- GLASSMORPHISM --- */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.glass:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(0, 242, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* --- UI ELEMENTS --- */
@@ -117,7 +90,6 @@ main, section, #experience, nav, footer,
     50% { opacity: 0.6; }
 }
 
-/* Efek Scanline */
 .scanline {
     width: 100%;
     height: 100px;
@@ -140,6 +112,8 @@ input, textarea {
     color: white !important;
     background: rgba(255, 255, 255, 0.02) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
 }
 
 input::placeholder, textarea::placeholder {
@@ -160,13 +134,24 @@ button[type="submit"] {
     .rpg-font { font-size: 0.55rem; }
 }
 
-/* --- FIX TYPEWRITER ALIGNMENT --- */
+/* --- FIX CANVAS --- */
+#space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -1 !important; 
+    display: block;
+    pointer-events: none;
+    background-color: var(--bg-dark);
+}
+
+/* --- TYPEWRITER ALIGNMENT --- */
 #typewriter-action {
     display: block !important; 
     text-align: left !important;
     position: relative;
-    top: 0;
-    margin-top: 10px;
     min-height: 100px; 
     height: auto;
     width: 100%;
@@ -174,7 +159,6 @@ button[type="submit"] {
     font-size: 1.1rem;
     line-height: 1.6;
     color: #b0b0b0;
-    overflow: visible;
 }
 
 #typewriter-action br {
@@ -184,13 +168,24 @@ button[type="submit"] {
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 5px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-dark);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--neon-cyan);
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { 
+    background: var(--neon-cyan); 
     border-radius: 10px;
+    box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* --- BUTTON NEON GLOW --- */
+.btn-neon {
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--neon-cyan);
 }
