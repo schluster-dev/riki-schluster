@@ -1,5 +1,4 @@
-// Konfigurasi Typewriter
-const bioText = "A lifelong learner, Civil Servant (ASN), and Digital Alchemist. I believe even the smallest dust, through persistence, can transform into stone. From IT infrastructure to AI-generated symphonies, I evolve through every challenge.";
+const bioText = "Lifelong learner, Civil Servant (ASN), and IT professional with a passion for AI and digital creativity. My journey is defined by persistence: the belief that even dust can transform into stone. Bridging the gap between school IT infrastructure, digital arts, and generative music.";
 let index = 0;
 
 function typeWriter() {
@@ -7,11 +6,11 @@ function typeWriter() {
     if (element && index < bioText.length) {
         element.innerHTML += bioText.charAt(index);
         index++;
-        setTimeout(typeWriter, 40);
+        setTimeout(typeWriter, 35);
     }
 }
 
-// Integrasi Apps Script
+// Integrasi Apps Script (Sama seperti sebelumnya)
 const scriptURL = 'https://script.google.com/macros/s/AKfycbxlOufLu5a-_umYnVvXh5eDLwAGofpaxs5TIHWKShSOcOxOFFZDtdT-zkbiqvogCo1NcQ/exec';
 
 function handleContactForm() {
@@ -24,7 +23,6 @@ function handleContactForm() {
             btn.disabled = true;
             btn.innerHTML = "TRANSMITTING...";
 
-            // Mengambil data dari form
             const formData = new FormData(form);
             const data = {
                 name: formData.get('name'),
@@ -32,19 +30,15 @@ function handleContactForm() {
                 message: formData.get('message')
             };
 
-            fetch(scriptURL, { 
-                method: 'POST', 
-                body: JSON.stringify(data)
-            })
+            fetch(scriptURL, { method: 'POST', body: JSON.stringify(data)})
             .then(response => {
-                alert("QUEST COMPLETE: Quest Log Updated!");
+                alert("QUEST COMPLETE: Message Sent Successfully!");
                 form.reset();
                 btn.disabled = false;
-                btn.innerHTML = "EXECUTE TRANSMISSION";
+                btn.innerHTML = "SEND MESSAGE (QUEST SUBMIT)";
             })
             .catch(error => {
-                console.error('Error!', error.message);
-                alert("TRANSMISSION ERROR: Check your connection.");
+                alert("ERROR: Transmission failed.");
                 btn.disabled = false;
                 btn.innerHTML = "RETRY TRANSMISSION";
             });
