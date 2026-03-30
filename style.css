@@ -1,3 +1,5 @@
+/* --- CUSTOM FONTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@300;400;600;700&display=swap');
 /* --- VARIABLES & RESET --- */
 :root {
     --neon-cyan: #00f2ff;
