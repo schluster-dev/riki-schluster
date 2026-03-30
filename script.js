@@ -12,7 +12,7 @@ function typeWriter() {
 }
 
 // Integrasi Apps Script (Ganti URL dengan milik Anda)
-const scriptURL = 'URL_DEPLOYMENT_APPS_SCRIPT_ANDA';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxlOufLu5a-_umYnVvXh5eDLwAGofpaxs5TIHWKShSOcOxOFFZDtdT-zkbiqvogCo1NcQ/exec';
 
 function handleContactForm() {
     const form = document.getElementById('contact-form');
