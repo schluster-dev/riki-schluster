@@ -4,7 +4,6 @@ const ctx = canvas.getContext('2d');
 let stars = [];
 const starCount = 150;
 
-// Menyesuaikan ukuran canvas ke layar penuh
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -13,7 +12,6 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-// Membuat objek bintang
 class Star {
     constructor() {
         this.reset();
@@ -24,43 +22,43 @@ class Star {
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2;
         this.speed = Math.random() * 0.5 + 0.2;
-        this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe'; // Sesuai tema Cyan & Purple
+        this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe';
     }
 
     update() {
-        this.y -= this.speed; // Gerak ke atas
+        this.y -= this.speed;
         if (this.y < 0) this.reset();
     }
 
     draw() {
         ctx.fillStyle = this.color;
-        ctx.shadowBlur = 5;
+        // Shadow Blur dikurangi sedikit agar performa di HP lancar
+        ctx.shadowBlur = 4;
         ctx.shadowColor = this.color;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+        // Reset shadow agar tidak bocor ke elemen canvas lain
+        ctx.shadowBlur = 0;
     }
 }
 
-// Inisialisasi bintang
 for (let i = 0; i < starCount; i++) {
     stars.push(new Star());
 }
 
-// Tambahan Efek Typewriter (Menghidupkan teks yang kosong tadi)
 const textElement = document.getElementById('typewriter-action');
 const bioText = "Membangun jembatan antara efisiensi birokrasi dan kreativitas digital. Spesialis dalam arsitektur sistem kearsipan dan pengembangan visual interaktif.";
 let charIndex = 0;
 
 function typeWriter() {
-    if (charIndex < bioText.length) {
+    if (textElement && charIndex < bioText.length) {
         textElement.innerHTML += bioText.charAt(charIndex);
         charIndex++;
         setTimeout(typeWriter, 40);
     }
 }
 
-// Loop Animasi
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     stars.forEach(star => {
@@ -70,6 +68,6 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Jalankan semuanya
+// Menjalankan semua fungsi
 animate();
 typeWriter();
