@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schluster | Digital Quest Log</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle at center, #1a0b2e 0%, #050505 100%);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+        .neon-text { text-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff; }
+        .rpg-font { font-family: 'Press Start 2P', cursive; font-size: 0.7rem; }
+        .sci-fi-font { font-family: 'Orbitron', sans-serif; }
+        
+        /* Animasi Ambient Trance Visualizer */
+        .bar { width: 3px; background: #00f2ff; animation: pulse 1s infinite ease-in-out; }
+        @keyframes pulse { 0%, 100% { height: 5px; } 50% { height: 25px; } }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <nav class="glass-panel fixed top-0 left-0 w-full z-50 p-4 flex justify-between items-center px-10">
+        <h1 class="sci-fi-font font-bold text-xl text-cyan-400 tracking-widest">SCHLUSTER.OS</h1>
+        <div class="flex gap-6 rpg-font text-[10px]">
+            <a href="#about" class="hover:text-cyan-400">LORE</a>
+            <a href="#skills" class="hover:text-cyan-400">STATS</a>
+            <a href="#contact" class="hover:text-cyan-400">MESSAGE</a>
+        </div>
+    </nav>
+
+    <main class="mt-20 max-w-5xl mx-auto">
+        
+        <section id="about" class="grid md:grid-cols-2 gap-10 py-20 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+                <div class="relative glass-panel rounded-lg p-2">
+                    <img src="https://via.placeholder.com/400x400/000000/00f2ff?text=AVATAR" alt="Profile" class="rounded opacity-80">
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <h2 class="rpg-font text-purple-400">CLASS: CREATIVE DEVELOPER</h2>
+                <h1 class="text-6xl font-bold sci-fi-font neon-text">RIDHO K.</h1>
+                <p id="typewriter" class="text-xl leading-relaxed text-gray-400 min-h-[100px]"></p>
+                <div class="flex items-center gap-4">
+                    <div class="rpg-font text-xs">HP</div>
+                    <div class="w-full bg-gray-800 h-3 rounded-full overflow-hidden border border-cyan-900">
+                        <div class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-[90%]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20">
+            <h3 class="sci-fi-font text-3xl mb-10 border-l-4 border-cyan-500 pl-4">TECHNICAL ATTRIBUTES</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass-panel p-6 rounded-xl text-center hover:scale-105 transition-transform cursor-crosshair">
+                    <div class="text-cyan-400 text-4xl mb-2">⚡</div>
+                    <p class="rpg-font mb-2">INT</p>
+                    <p class="font-bold">Apps Script</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl text-center hover:scale-105 transition-transform cursor-crosshair">
+                    <div class="text-purple-400 text-4xl mb-2">🔮</div>
+                    <p class="rpg-font mb-2">DEX</p>
+                    <p class="font-bold">UI Design</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl text-center hover:scale-105 transition-transform cursor-crosshair">
+                    <div class="text-green-400 text-4xl mb-2">🛡️</div>
+                    <p class="rpg-font mb-2">STR</p>
+                    <p class="font-bold">Web Dev</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl text-center hover:scale-105 transition-transform cursor-crosshair">
+                    <div class="text-pink-400 text-4xl mb-2">🔊</div>
+                    <p class="rpg-font mb-2">MP</p>
+                    <p class="font-bold">Trance Prod</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 glass-panel p-8 rounded-3xl">
+            <h3 class="sci-fi-font text-3xl mb-6">SEND ENCRYPTED MESSAGE</h3>
+            <form id="contactForm" class="grid gap-4">
+                <input type="text" id="name" placeholder="YOUR NAME" class="bg-black/50 border border-cyan-900 p-4 rounded focus:outline-none focus:border-cyan-400" required>
+                <input type="email" id="email" placeholder="YOUR EMAIL" class="bg-black/50 border border-cyan-900 p-4 rounded focus:outline-none focus:border-cyan-400" required>
+                <textarea id="message" rows="4" placeholder="MESSAGE..." class="bg-black/50 border border-cyan-900 p-4 rounded focus:outline-none focus:border-cyan-400" required></textarea>
+                <button type="submit" class="bg-cyan-600 hover:bg-cyan-400 text-black font-bold py-4 rounded transition-all sci-fi-font uppercase tracking-tighter">Initiate Transmission</button>
+            </form>
+        </section>
+
+    </main>
+
+    <div class="fixed bottom-10 right-10 flex items-end gap-1 h-10 cursor-pointer" onclick="toggleMusic()">
+        <div class="bar" style="animation-delay: 0.1s"></div>
+        <div class="bar" style="animation-delay: 0.3s"></div>
+        <div class="bar" style="animation-delay: 0.2s"></div>
+        <div class="bar" style="animation-delay: 0.5s"></div>
+        <div class="rpg-font ml-4 text-[8px] self-center">BGM: TRANCE_ACTIVE</div>
+    </div>
+
+    <script>
+        // 1. Typewriter Effect
+        const text = "A digital sorcerer specializing in automation, soundscapes, and immersive web experiences. Journeying through the realms of IT and Creative Media.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 40);
+            }
+        }
+        window.onload = typeWriter;
+
+        // 2. Apps Script Integration
+        const scriptURL = 'MASUKKAN_URL_DEPLOYMENT_GAS_ANDA_DISINI';
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+
+            fetch(scriptURL, { method: 'POST', body: JSON.stringify(data)})
+            .then(response => alert('Message Sent Successfully! Quest Updated.'))
+            .catch(error => console.error('Error!', error.message));
+        });
+
+        function toggleMusic() {
+            alert("Sistem musik bisa dihubungkan dengan file .mp3 Anda di GitHub Repo.");
+        }
+    </script>
+</body>
+</html>
