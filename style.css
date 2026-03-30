@@ -124,3 +124,12 @@ button[type="submit"] {
     h1 { font-size: 3rem !important; }
     .rpg-font { font-size: 0.55rem; }
 }
+
+main, nav, footer {
+    position: relative;
+    z-index: 10;
+}
+
+#space-canvas {
+    background: #050505; /* Warna dasar hitam jika gambar gagal muat */
+}
