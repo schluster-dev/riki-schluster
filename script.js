@@ -1,5 +1,5 @@
 // Konfigurasi Typewriter
-const bioText = "Menyeimbangkan harmoni antara baris kode IT, irama musik Trance, dan estetika visual Anime dalam satu ekosistem digital.";
+const bioText = "A lifelong learner, Civil Servant (ASN), and Digital Alchemist. I believe even the smallest dust, through persistence, can transform into stone. From IT infrastructure to AI-generated symphonies, I evolve through every challenge.";
 let index = 0;
 
 function typeWriter() {
