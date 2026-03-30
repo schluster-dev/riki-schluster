@@ -140,24 +140,34 @@ input::placeholder, textarea::placeholder {
     text-transform: uppercase;
 }
 
-/* --- TYPEWRITER ALIGNMENT --- */
+/* --- FIX TYPEWRITER TERPOTONG --- */
 #typewriter-action {
     display: block !important; 
     text-align: left !important;
     position: relative;
-    min-height: 100px; 
-    height: auto;
+    
+    /* Ganti min-height agar lebih lega atau buat auto */
+    min-height: 120px; 
+    height: auto; 
+    
     width: 100%;
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.1rem;
     line-height: 1.6;
     color: #b0b0b0;
+    
+    /* Pastikan overflow tidak memotong teks */
+    overflow: visible !important; 
+    
+    /* Memberikan sedikit ruang bawah agar tidak mepet baris terakhir */
+    padding-bottom: 10px; 
 }
 
+/* Memastikan baris baru (br) terbaca dengan benar */
 #typewriter-action br {
     display: block;
     content: "";
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 /* Custom Scrollbar */
