@@ -7,33 +7,36 @@
     --bg-dark: #050505;
 }
 
+/* Base Style */
 body { 
-    background: var(--bg-dark); 
+    background: #050505 !important; /* Paksa warna gelap */
     color: #e0e0e0; 
     font-family: 'Rajdhani', sans-serif; 
-    background-image: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #050505 100%);
+    background-image: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #050505 100%) !important;
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
 }
 
-/* Glassmorphism Effect */
+/* UI Elements */
 .glass { 
-    background: rgba(255, 255, 255, 0.03); 
-    backdrop-filter: blur(10px); 
+    background: rgba(255, 255, 255, 0.05) !important; 
+    backdrop-filter: blur(12px); 
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .rpg-border { 
-    border: 2px solid var(--neon-cyan); 
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); 
+    border: 2px solid var(--neon-cyan) !important; 
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); 
 }
 
 .neon-text { 
-    text-shadow: 0 0 8px var(--neon-cyan); 
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan); 
 }
 
 .rpg-font { 
-    font-family: 'Press Start 2P', cursive; 
-    font-size: 0.65rem; 
+    font-family: 'Press Start 2P', cursive !important; 
 }
 
 /* Music Visualizer Animation */
@@ -44,4 +47,5 @@ body {
 
 .animate-bars {
     animation: bars 1s infinite ease-in-out;
+    display: inline-block;
 }
