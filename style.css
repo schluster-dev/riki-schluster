@@ -1,117 +1,73 @@
-/* --- CUSTOM FONTS --- */
+/* --- Master CSS v3.0: Space Opera Edition --- */
+
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@300;400;600;700&display=swap');
 
-/* --- CORE VARIABLES --- */
 :root {
     --neon-cyan: #00f2ff;
     --neon-purple: #bc13fe;
-    --neon-green: #22c55e;
-    --bg-dark: #050505;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
+    --bg-dark: #050505; /* Full Black Base */
 }
 
-/* --- BASE STYLING --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     background: var(--bg-dark);
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 20%);
-    background-attachment: fixed;
-    line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    position: relative;
 }
 
-/* --- TYPOGRAPHY --- */
-.rpg-font {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.7rem;
-}
-
+/* Typography */
+.rpg-font { font-family: 'Press Start 2P', cursive; font-size: 0.7rem; }
 .neon-text {
     color: var(--neon-cyan);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.7), 0 0 20px rgba(0, 242, 255, 0.3);
 }
 
-/* --- GLASSMORPHISM --- */
+/* Glass UI */
 .glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.6); /* Gelap agar menyatu dengan space */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.glass:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
+.footer-glass {
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(5px);
 }
 
-/* --- UI ELEMENTS --- */
+/* Border Glow */
 .rpg-border {
     border: 2px solid var(--neon-cyan);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-    position: relative;
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
 }
 
-/* Animasi Skill Bar */
+/* Skill Bars */
 .h-1 div {
-    position: relative;
     border-radius: 2px;
     transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1);
 }
 
-/* --- ANIMATIONS --- */
-@keyframes bars {
-    0%, 100% { height: 10px; opacity: 0.5; }
-    50% { height: 30px; opacity: 1; }
-}
+/* Animations */
+@keyframes bars { 0%, 100% { height: 10px; opacity: 0.5; } 50% { height: 30px; opacity: 1; } }
+.animate-bars { animation: bars 1.2s infinite ease-in-out; }
 
-.animate-bars {
-    animation: bars 1.2s infinite ease-in-out;
-}
-
-@keyframes pulse-glow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-}
-
-/* Efek Scanline (Opsional via JS/HTML Class) */
-.scanline {
+/* Canvas Styling */
+#space-canvas {
     width: 100%;
-    height: 100px;
-    z-index: 99;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
-    opacity: 0.1;
-    position: absolute;
-    bottom: 100%;
-    animation: scanline 8s linear infinite;
+    height: 100%;
 }
 
-@keyframes scanline {
-    0% { bottom: 100%; }
-    100% { bottom: -100%; }
-}
+/* Inputs */
+input, textarea { font-family: 'Rajdhani', sans-serif; color: white !important; }
+input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.3); font-size: 0.8rem; text-transform: uppercase; }
 
-/* --- FORMS & INPUTS --- */
-input, textarea {
-    font-family: 'Rajdhani', sans-serif;
-    color: white !important;
-}
-
-input::placeholder, textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-}
-
-button[type="submit"] {
+/* Scrollbar kustom (Cyberpunk style) */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); }
