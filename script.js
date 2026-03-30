@@ -1,255 +1,97 @@
-/* --- SCHLUSTER.OS - FULL SYSTEM ARCHITECTURE v2.2 --- */
+const canvas = document.getElementById('space-canvas');
+const ctx = canvas.getContext('2d');
 
-/* 1. FONTS & ASSETS */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@300;400;600;700&display=swap');
+let stars = [];
+const starCount = 150;
 
-/* 2. CORE SYSTEM VARIABLES */
-:root {
-    --neon-cyan: #00f2ff;
-    --neon-purple: #bc13fe;
-    --neon-green: #22c55e;
-    --bg-dark: #050505;
-    --glass-bg: rgba(255, 255, 255, 0.03); 
-    --glass-border: rgba(255, 255, 255, 0.1);
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initStars(); 
 }
 
-/* 3. BASE RESET & GLOBAL FIX */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+window.addEventListener('resize', resize);
 
-html {
-    background-color: var(--bg-dark);
-    overflow-x: hidden;
-    width: 100%;
-}
-
-body {
-    background: transparent !important; 
-    color: #e0e0e0;
-    font-family: 'Rajdhani', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-}
-
-/* 4. CANVAS ENGINE (FIXED BACKGROUND) */
-#space-canvas {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: -1 !important; 
-    display: block;
-    pointer-events: none;
-    background-color: var(--bg-dark) !important;
-}
-
-/* 5. POSITIONING & TRANSPARENCY OVERRIDES */
-/* Nav dikunci agar Sticky dan tetap memiliki efek Glass */
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border-bottom: 1px solid var(--glass-border);
-}
-
-main, section, footer {
-    background-color: transparent !important;
-}
-
-#experience, #skills, #education, #archives {
-    background-color: transparent !important;
-}
-
-/* 6. TYPOGRAPHY ENGINE */
-.rpg-font {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.7rem;
-}
-
-.neon-text {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
-}
-
-h1, h2, h3, .orbitron {
-    font-family: 'Orbitron', sans-serif;
-}
-
-/* 7. GLASSMORPHISM & SOCIAL ICON GUARD */
-.glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border: 1px solid var(--glass-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-/* KUNCI SOSMED TETAP KOTAK (DESKTOP STYLE) */
-.flex.gap-4 a .glass, 
-nav .glass.w-10, 
-footer .glass.w-10 {
-    flex-shrink: 0 !important;
-    aspect-ratio: 1 / 1 !important;
-    width: 44px !important; 
-    height: 44px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important;
-}
-
-.glass:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(0, 242, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* 8. ANIMATIONS & EFFECTS */
-@keyframes bars {
-    0%, 100% { height: 10px; opacity: 0.5; }
-    50% { height: 30px; opacity: 1; }
-}
-
-.animate-bars {
-    animation: bars 1.2s infinite ease-in-out;
-}
-
-.scanline {
-    width: 100%;
-    height: 100px;
-    z-index: 99;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
-    opacity: 0.1;
-    position: absolute;
-    bottom: 100%;
-    animation: scanline 8s linear infinite;
-}
-
-@keyframes scanline {
-    0% { bottom: 100%; }
-    100% { bottom: -100%; }
-}
-
-/* 9. MANIFEST BUTTON & SHIMMER */
-.btn-manifest {
-    position: relative;
-    overflow: hidden;
-    background: rgba(0, 242, 255, 0.05);
-    border: 1px solid rgba(0, 242, 255, 0.3);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.shimmer-bar {
-    position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: skewX(-25deg);
-}
-
-.btn-manifest:hover .shimmer-bar {
-    animation: shimmer-run 1.5s infinite;
-}
-
-@keyframes shimmer-run {
-    0% { left: -100%; }
-    100% { left: 150%; }
-}
-
-/* 10. ARCHIVES VISUAL ENGINE */
-.aspect-\[16\/10\] {
-    position: relative;
-    padding-bottom: 62.5%; 
-    height: 0;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.02);
-}
-
-.aspect-\[16\/10\] img {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover;
-}
-
-.group:hover img {
-    filter: grayscale(0%) brightness(110%);
-}
-
-.group .translate-y-10 {
-    transform: translateY(2rem);
-}
-
-.group:hover .translate-y-0 {
-    transform: translateY(0);
-}
-
-/* 11. FORM ELEMENTS */
-input, textarea {
-    font-family: 'Rajdhani', sans-serif;
-    color: white !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-}
-
-/* 12. UTILITIES */
-.skill-track { height: 6px; width: 100%; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
-.skill-fill { height: 100%; border-radius: 10px; box-shadow: 0 0 10px currentColor; }
-.stat-value { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-.tracking-tighter-2 { letter-spacing: -0.05em; }
-.text-8px { font-size: 8px; }
-
-/* 13. CUSTOM SCROLLBAR */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 10px; box-shadow: 0 0 10px var(--neon-cyan); }
-
-/* 14. MOBILE RESPONSIVE ENGINE */
-@media (max-width: 768px) {
-    h1 { 
-        font-size: 2.2rem !important; 
-        line-height: 1.1;
+class Star {
+    constructor() {
+        this.reset();
     }
 
-    /* Header tetap nempel di atas saat scroll mobile */
-    nav {
-        position: sticky;
-        top: 0;
+    reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * (canvas.height + 100); 
+        this.size = Math.random() * 2;
+        this.speed = Math.random() * 0.5 + 0.2;
+        this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe';
     }
 
-    .container {
-        padding-left: 1.25rem !important;
-        padding-right: 1.25rem !important;
-        max-width: 100vw !important;
+    update() {
+        this.y -= this.speed;
+        if (this.y < 0) this.reset();
     }
 
-    /* Sembunyikan elemen hiasan yang makan tempat */
-    .animate-bars { display: none; }
-
-    /* Fix elemen .glass di mobile agar tidak overflow */
-    .glass {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
     }
 }
+
+function initStars() {
+    stars = [];
+    for (let i = 0; i < starCount; i++) {
+        stars.push(new Star());
+    }
+}
+
+resize();
+
+const textElement = document.getElementById('typewriter-action');
+
+// --- UPDATE BIO TEXT DENGAN POINT-POINT BARU KAMU ---
+const bioText = "Saya bekerja sebagai Staff Kurikulum dan Arsiparis Digital di <span class='text-cyan-400'>smkn3linggabuana.sch.id</span>. <br><br> Pengelola website resmi sekolah, AI Music Producer (Suno/Udio) di kanal <span class='text-purple-400'>Schluster</span>, dan kreator visual menggunakan Stable Diffusion dengan teknik Strong Prompting. <br><br> Saat ini aktif mempelajari Python, mengembangkan game survival menggunakan <span class='text-cyan-500'>Godot Engine</span>, serta mengoptimalkan sistem automasi kearsipan. <br><br> Perjalanan hidup saya dibentuk oleh tantangan, namun saya percaya bahwa debu terkecil sekalipun, melalui kegigihan, dapat bertransformasi menjadi batu. Never stop learning, creating, and evolving.";
+
+let charIndex = 0;
+
+if(textElement) textElement.innerHTML = "";
+
+function typeWriter() {
+    if (textElement && charIndex < bioText.length) {
+        // Cek tag <br>
+        if (bioText.substring(charIndex, charIndex + 4) === "<br>") {
+            textElement.innerHTML += "<br>";
+            charIndex += 4;
+            setTimeout(typeWriter, 30);
+        } 
+        // Cek tag <span> untuk warna (agar tag tidak ikut diketik satu-satu)
+        else if (bioText.charAt(charIndex) === "<") {
+            let tagEnd = bioText.indexOf(">", charIndex);
+            textElement.innerHTML += bioText.substring(charIndex, tagEnd + 1);
+            charIndex = tagEnd + 1;
+            typeWriter(); // Lanjut langsung tanpa delay untuk tag
+        }
+        else {
+            textElement.innerHTML += bioText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 30);
+        }
+    } else if (textElement) {
+        textElement.innerHTML += '<span class="text-cyan-400 animate-pulse">_</span>';
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(star => {
+        star.update();
+        star.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+animate();
+typeWriter();
