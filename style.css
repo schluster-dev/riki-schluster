@@ -256,3 +256,19 @@ input::placeholder, textarea::placeholder {
     font-family: 'Orbitron', sans-serif;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
+
+/* Styling khusus Terminal Contact */
+#contact input, #contact textarea {
+    background: rgba(0, 255, 0, 0.02) !important;
+    border: 1px solid rgba(34, 197, 94, 0.1) !important;
+    color: #22c55e !important; /* Warna teks hijau terminal */
+}
+
+#contact input:focus, #contact textarea:focus {
+    border-color: rgba(34, 197, 94, 0.5) !important;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+}
+
+#contact input::placeholder, #contact textarea::placeholder {
+    color: rgba(34, 197, 94, 0.3);
+}
