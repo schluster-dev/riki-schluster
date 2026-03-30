@@ -44,16 +44,22 @@ body {
 
 /* --- GLASSMORPHISM --- */
 .glass {
-    background: var(--glass-bg);
+    /* Kita turunkan dari 0.1 atau 0.05 ke 0.02 agar lebih tembus pandang */
+    background: rgba(255, 255, 255, 0.02); 
+    
+    /* Efek kaca (blur) tetap dipertahankan agar teks tetap tajam */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
+    
+    /* Border dibuat sangat tipis agar tetap elegan */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    
+    /* Tambahan agar saat di-hover sedikit lebih terang */
+    transition: background 0.3s ease;
 }
 
 .glass:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* --- UI ELEMENTS --- */
