@@ -48,13 +48,19 @@ for (let i = 0; i < starCount; i++) {
     stars.push(new Star());
 }
 
-// --- LOGIKA TYPEWRITER BARU (FIXED & AUTO-HEIGHT) ---
+// --- LOGIKA TYPEWRITER SEDERHANA (DARI ATAS KE BAWAH) ---
 const textElement = document.getElementById('typewriter-action');
+
+// Teks biografi kamu
 const bioText = "I am a lifelong learner with a strong passion for technology, creativity, and artificial intelligence. I work as a school IT professional and a civil servant (ASN), while remaining an enthusiastic gamer, programmer, and AI enthusiast. <br><br> My interests include web development, coding, digital illustration, graphic design, AI-generated music, and visual creativity using tools such as Photoshop, Krita, and various AI platforms. I enjoy exploring how technology and art intersect to create meaningful and innovative digital experiences. <br><br> My life journey has not been easy — shaped by challenges and setbacks — but I have always chosen to stand, grow, and move forward. I believe that even something as small as dust can, through persistence, transform into stone. That belief drives me to never stop learning, creating, and evolving.";
 
-// Pastikan container teks bisa memanjang ke bawah
-textElement.style.minHeight = "auto"; 
+// RESET TOTAL STYLING BIAR GAK ADA EFEK SCROLL KE ATAS
+textElement.innerHTML = "";
+textElement.style.position = "relative";
 textElement.style.height = "auto";
+textElement.style.minHeight = "200px"; // Minimal ruang agar layout tidak lompat
+textElement.style.top = "0";
+textElement.style.display = "block";
 textElement.style.overflow = "visible";
 
 let charIndex = 0;
@@ -70,11 +76,11 @@ function typeWriter() {
             charIndex++;
         }
         
-        // Kecepatan ngetik (25ms agar tidak terlalu lambat karena teks panjang)
-        setTimeout(typeWriter, 25); 
+        // Kecepatan mengetik
+        setTimeout(typeWriter, 30); 
     } else {
-        // Efek kursor berkedip di akhir teks (opsional)
-        textElement.innerHTML += '<span class="animate-pulse text-cyan-400">_</span>';
+        // Berhenti dan tambahkan kursor statis di akhir
+        textElement.innerHTML += '<span class="text-cyan-400 animate-pulse">_</span>';
     }
 }
 
@@ -88,6 +94,6 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Jalankan
+// Eksekusi
 animate();
 typeWriter();
