@@ -10,65 +10,58 @@
 </head>
 <body class="bg-[#050505] text-white">
 
-    <nav class="glass p-4 sticky top-0 z-50">
+    <nav class="glass p-4 sticky top-0 z-50 border-b border-white/5">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <span class="rpg-font text-cyan-400">SCHLUSTER.SYS</span>
-            <div class="flex gap-4 text-[10px] rpg-font">
-                <a href="#bio" class="hover:text-cyan-400">LORE</a>
-                <a href="#stats" class="hover:text-cyan-400">STATS</a>
-                <a href="#quest" class="hover:text-cyan-400">CONTACT</a>
+            <span class="rpg-font text-cyan-400 tracking-tighter">SCHLUSTER.SYS</span>
+            <div class="flex gap-6 text-[10px] rpg-font">
+                <a href="#bio" class="hover:text-cyan-400 transition">LORE</a>
+                <a href="#stats" class="hover:text-cyan-400 transition">STATS</a>
+                <a href="#quest" class="hover:text-cyan-400 transition">CONTACT</a>
             </div>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 py-12">
+        
         <section id="bio" class="mb-20 flex flex-col md:flex-row gap-10 items-center">
-            <div class="w-48 h-48 rpg-border rounded-lg overflow-hidden bg-gray-900 shadow-[0_0_20px_rgba(0,242,255,0.2)]">
-                <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Schluster" alt="Avatar" class="w-full h-full">
+            <div class="w-48 h-48 rpg-border rounded-full overflow-hidden bg-gray-900 shadow-[0_0_30px_rgba(0,242,255,0.3)] flex-shrink-0">
+                <img src="https://www.gravatar.com/avatar/be7ac3bc3745674744d5c97b8307b22d?s=400" alt="Ridho Kiswanto" class="w-full h-full object-cover">
             </div>
-            <div>
-                <h2 class="rpg-font text-purple-500 mb-2">Rank: Senior Operator</h2>
-                <h1 class="text-5xl font-bold neon-text mb-4" style="font-family: 'Orbitron', sans-serif;">RIDHO K.</h1>
-                <p id="typewriter-action" class="text-lg text-gray-400 min-h-[60px] leading-relaxed"></p>
-            </div>
-        </section>
-
-        <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-            <div class="glass p-4 rounded text-center border border-white/10">
-                <p class="rpg-font text-cyan-400 mb-2">INT</p>
-                <p class="font-bold">Apps Script</p>
-            </div>
-            <div class="glass p-4 rounded text-center border border-white/10">
-                <p class="rpg-font text-purple-400 mb-2">DEX</p>
-                <p class="font-bold">Web Dev</p>
-            </div>
-            <div class="glass p-4 rounded text-center border border-white/10">
-                <p class="rpg-font text-pink-400 mb-2">LUK</p>
-                <p class="font-bold">Music Prod</p>
-            </div>
-            <div class="glass p-4 rounded text-center border border-white/10">
-                <p class="rpg-font text-green-400 mb-2">STR</p>
-                <p class="font-bold">IT Support</p>
+            <div class="text-center md:text-left">
+                <h2 class="rpg-font text-purple-500 mb-2 text-xs uppercase tracking-widest">Rank: School IT Professional / ASN</h2>
+                <h1 class="text-5xl font-bold neon-text mb-4" style="font-family: 'Orbitron', sans-serif;">RIDHO KISWANTO</h1>
+                <p id="typewriter-action" class="text-gray-400 leading-relaxed min-h-[120px] text-lg italic"></p>
             </div>
         </section>
 
-        <section id="quest" class="glass p-8 rounded-xl border border-cyan-500/30">
-            <h3 class="rpg-font text-cyan-400 mb-6 text-lg">NEW QUEST: SEND MESSAGE</h3>
-            <form id="contact-form" class="flex flex-col gap-4">
-                <input type="text" name="name" placeholder="CHARACTER NAME" class="bg-black/50 border border-white/10 p-3 rounded rpg-font text-[10px] focus:border-cyan-400 outline-none" required>
-                <input type="email" name="email" placeholder="EMAIL ADDRESS" class="bg-black/50 border border-white/10 p-3 rounded rpg-font text-[10px] focus:border-cyan-400 outline-none" required>
-                <textarea name="message" placeholder="YOUR MESSAGE..." rows="4" class="bg-black/50 border border-white/10 p-3 rounded rpg-font text-[10px] focus:border-cyan-400 outline-none" required></textarea>
-                <button type="submit" id="submit-btn" class="bg-cyan-600 hover:bg-cyan-400 text-black font-bold py-3 rounded rpg-font transition-all">EXECUTE TRANSMISSION</button>
-            </form>
+        <section id="stats" class="mb-20">
+            <h3 class="rpg-font text-cyan-400 mb-8 border-l-4 border-cyan-500 pl-4 text-sm">Character Attributes</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass p-4 rounded-lg border border-white/10 text-center hover:border-cyan-500 transition">
+                    <p class="rpg-font text-cyan-400 mb-2 text-[8px]">INT (Logic)</p>
+                    <p class="font-bold text-[10px] uppercase">IT & Coding</p>
+                </div>
+                <div class="glass p-4 rounded-lg border border-white/10 text-center hover:border-purple-500 transition">
+                    <p class="rpg-font text-purple-400 mb-2 text-[8px]">DEX (Art)</p>
+                    <p class="font-bold text-[10px] uppercase">Design & Illustration</p>
+                </div>
+                <div class="glass p-4 rounded-lg border border-white/10 text-center hover:border-red-500 transition">
+                    <p class="rpg-font text-red-500 mb-2 text-[8px]">VIT (Persistence)</p>
+                    <p class="font-bold text-[10px] uppercase">Dust to Stone</p>
+                </div>
+                <div class="glass p-4 rounded-lg border border-white/10 text-center hover:border-green-500 transition">
+                    <p class="rpg-font text-green-400 mb-2 text-[8px]">WIS (AI)</p>
+                    <p class="font-bold text-[10px] uppercase">AI Enthusiast</p>
+                </div>
+            </div>
         </section>
-    </main>
 
-    <div class="fixed bottom-6 right-6 flex items-end gap-1 opacity-50">
-        <div class="w-1 bg-cyan-400 animate-bars" style="animation-delay: 0.1s"></div>
-        <div class="w-1 bg-cyan-400 animate-bars" style="animation-delay: 0.3s"></div>
-        <div class="w-1 bg-cyan-400 animate-bars" style="animation-delay: 0.2s"></div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+        <section id="quest" class="glass p-8 rounded-2xl border border-white/5 shadow-2xl">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-2 w-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                <h3 class="rpg-font text-cyan-400 text-lg uppercase">Initiate Communication</h3>
+            </div>
+            <form id="contact-form" class="flex flex-col gap-5">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <input type="text" name="name" placeholder="YOUR NAME / ALIAS" class="bg-white/5 border border-white/10 p-4 rounded-lg rpg-font text-[9px] focus:border-cyan-400 outline-none transition" required>
+                    <input type="email" name="email" placeholder="YOUR EMAIL ADDRESS" class="bg-white/5 border border
