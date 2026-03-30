@@ -8,48 +8,58 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-[#050505] text-white">
 
     <nav class="glass p-4 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <span class="rpg-font text-cyan-400">SCHLUSTER.SYS</span>
             <div class="flex gap-4 text-[10px] rpg-font">
-                <a href="#bio">LORE</a>
-                <a href="#stats">STATS</a>
-                <a href="#quest">QUEST</a>
+                <a href="#bio" class="hover:text-cyan-400">LORE</a>
+                <a href="#stats" class="hover:text-cyan-400">STATS</a>
+                <a href="#quest" class="hover:text-cyan-400">CONTACT</a>
             </div>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 py-12">
         <section id="bio" class="mb-20 flex flex-col md:flex-row gap-10 items-center">
-            <div class="w-48 h-48 rpg-border rounded-lg overflow-hidden bg-gray-900">
-                <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Schluster" alt="Avatar">
+            <div class="w-48 h-48 rpg-border rounded-lg overflow-hidden bg-gray-900 shadow-[0_0_20px_rgba(0,242,255,0.2)]">
+                <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=Schluster" alt="Avatar" class="w-full h-full">
             </div>
             <div>
                 <h2 class="rpg-font text-purple-500 mb-2">Rank: Senior Operator</h2>
-                <h1 class="text-5xl font-bold neon-text mb-4" style="font-family: 'Orbitron'">RIDHO K.</h1>
-                <p id="typewriter-action" class="text-lg text-gray-400 min-h-[60px]"></p>
+                <h1 class="text-5xl font-bold neon-text mb-4" style="font-family: 'Orbitron', sans-serif;">RIDHO K.</h1>
+                <p id="typewriter-action" class="text-lg text-gray-400 min-h-[60px] leading-relaxed"></p>
             </div>
         </section>
 
         <section id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-            <div class="glass p-4 rounded text-center">
+            <div class="glass p-4 rounded text-center border border-white/10">
                 <p class="rpg-font text-cyan-400 mb-2">INT</p>
                 <p class="font-bold">Apps Script</p>
             </div>
-            <div class="glass p-4 rounded text-center">
+            <div class="glass p-4 rounded text-center border border-white/10">
                 <p class="rpg-font text-purple-400 mb-2">DEX</p>
                 <p class="font-bold">Web Dev</p>
             </div>
-            <div class="glass p-4 rounded text-center">
+            <div class="glass p-4 rounded text-center border border-white/10">
                 <p class="rpg-font text-pink-400 mb-2">LUK</p>
                 <p class="font-bold">Music Prod</p>
             </div>
-            <div class="glass p-4 rounded text-center">
+            <div class="glass p-4 rounded text-center border border-white/10">
                 <p class="rpg-font text-green-400 mb-2">STR</p>
                 <p class="font-bold">IT Support</p>
             </div>
+        </section>
+
+        <section id="quest" class="glass p-8 rounded-xl border border-cyan-500/30">
+            <h3 class="rpg-font text-cyan-400 mb-6 text-lg">NEW QUEST: SEND MESSAGE</h3>
+            <form id="contact-form" class="flex flex-col gap-4">
+                <input type="text" name="name" placeholder="CHARACTER NAME" class="bg-black/50 border border-white/10 p-3 rounded rpg-font text-[10px] focus:border-cyan-400 outline-none" required>
+                <input type="email" name="email" placeholder="EMAIL ADDRESS" class="bg-black/50 border border-white/10 p-3 rounded rpg-font text-[10px] focus:border-cyan-400 outline-none" required>
+                <textarea name="message" placeholder="YOUR MESSAGE..." rows="4" class="bg-black/50 border border-white/10 p-3 rounded rpg-font text-[10px] focus:border-cyan-400 outline-none" required></textarea>
+                <button type="submit" id="submit-btn" class="bg-cyan-600 hover:bg-cyan-400 text-black font-bold py-3 rounded rpg-font transition-all">EXECUTE TRANSMISSION</button>
+            </form>
         </section>
     </main>
 
