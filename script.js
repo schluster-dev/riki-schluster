@@ -48,7 +48,7 @@ for (let i = 0; i < starCount; i++) {
 }
 
 const textElement = document.getElementById('typewriter-action');
-const bioText = "Membangun jembatan antara efisiensi birokrasi dan kreativitas digital. Spesialis dalam arsitektur sistem kearsipan dan pengembangan visual interaktif.";
+const bioText = "I am a lifelong learner with a strong passion for technology, creativity, and artificial intelligence. I work as a school IT professional and a civil servant (ASN), while remaining an enthusiastic gamer, programmer, and AI enthusiast. My interests include web development, coding, digital illustration, graphic design, AI-generated music, and visual creativity using tools such as Photoshop, Krita, and various AI platforms. I enjoy exploring how technology and art intersect to create meaningful and innovative digital experiences. My life journey has not been easy — shaped by challenges and setbacks — but I have always chosen to stand, grow, and move forward. I believe that even something as small as dust can, through persistence, transform into stone. That belief drives me to never stop learning, creating, and evolving.";
 let charIndex = 0;
 
 function typeWriter() {
