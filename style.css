@@ -49,3 +49,14 @@ body {
     animation: bars 1s infinite ease-in-out;
     display: inline-block;
 }
+
+.neon-text {
+    color: #00f2ff;
+    text-shadow: 0 0 5px #00f2ff, 0 0 15px #00f2ff;
+    animation: flicker 3s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
