@@ -133,3 +133,56 @@ main, nav, footer {
 #space-canvas {
     background: #050505; /* Warna dasar hitam jika gambar gagal muat */
 }
+
+/* --- FIX CANVAS & LAYOUT (PENTING) --- */
+#space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important; /* Paksa lebar layar penuh */
+    height: 100vh !important; /* Paksa tinggi layar penuh */
+    z-index: -1;
+    display: block;
+    pointer-events: none; /* Supaya tidak menghalangi klik pada menu */
+}
+
+/* --- FIX TYPEWRITER ALIGNMENT --- */
+#typewriter-action {
+    /* Menghapus paksa efek centering dari flexbox jika ada di class induk */
+    display: block !important; 
+    text-align: left !important;
+    
+    /* Mengatur posisi dari atas */
+    position: relative;
+    top: 0;
+    margin-top: 10px;
+    
+    /* Ukuran box agar muat teks panjang */
+    min-height: 100px; 
+    height: auto;
+    width: 100%;
+    
+    /* Styling Teks */
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #b0b0b0;
+    overflow: visible;
+}
+
+/* Tambahan agar saat mengetik teks tidak goyang */
+#typewriter-action br {
+    display: block;
+    content: "";
+    margin-top: 10px;
+}
+
+/* --- CLEANUP BODY --- */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Memastikan konten di atas canvas */
+    position: relative; 
+}
