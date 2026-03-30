@@ -7,9 +7,6 @@ const starCount = 150;
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
-    // PENTING: Re-inisialisasi bintang saat ukuran layar berubah 
-    // agar bintang selalu memenuhi area canvas yang baru.
     initStars(); 
 }
 
@@ -22,7 +19,7 @@ class Star {
 
     reset() {
         this.x = Math.random() * canvas.width;
-        this.y = Math.random() * (canvas.height + 100); // Mulai sedikit di luar bawah
+        this.y = Math.random() * (canvas.height + 100); 
         this.size = Math.random() * 2;
         this.speed = Math.random() * 0.5 + 0.2;
         this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe';
@@ -51,31 +48,38 @@ function initStars() {
     }
 }
 
-// Inisialisasi awal
 resize();
 
 const textElement = document.getElementById('typewriter-action');
-// Gunakan <br><br> agar teks rapi dan tidak menumpuk satu paragraf panjang
-const bioText = "I am a lifelong learner with a strong passion for technology, creativity, and artificial intelligence. I work as a school IT professional and a civil servant (ASN), while remaining an enthusiastic gamer, programmer, and AI enthusiast. <br><br> My interests include web development, archive, coding, digital illustration, graphic design, game design, AI-generated assets, and visual creativity using tools such as Photoshop, Krita, and various AI platforms. I enjoy exploring how technology and art intersect to create meaningful and innovative digital experiences. <br><br> My life journey has not been easy — shaped by challenges and setbacks — but I have always chosen to stand, grow, and move forward. I believe that even something as small as dust can, through persistence, transform into stone. That belief drives me to never stop learning, creating, and evolving.";
+
+// --- UPDATE BIO TEXT DENGAN POINT-POINT BARU KAMU ---
+const bioText = "Staff Kurikulum & Arsiparis Digital di <span class='text-cyan-400'>smkn3linggabuana.sch.id</span>. <br><br> Pengelola website resmi sekolah, AI Music Producer (Suno/Udio) di kanal <span class='text-purple-400'>Schluster</span>, dan kreator visual menggunakan Stable Diffusion dengan teknik Strong Prompting. <br><br> Saat ini aktif mempelajari Python, mengembangkan game survival menggunakan <span class='text-cyan-500'>Godot Engine</span>, serta mengoptimalkan sistem automasi kearsipan. <br><br> Perjalanan hidup saya dibentuk oleh tantangan, namun saya percaya bahwa debu terkecil sekalipun, melalui kegigihan, dapat bertransformasi menjadi batu. Never stop learning, creating, and evolving.";
 
 let charIndex = 0;
 
-// PASTIKAN KOSONG SEBELUM MULAI
 if(textElement) textElement.innerHTML = "";
 
 function typeWriter() {
     if (textElement && charIndex < bioText.length) {
-        // Cek apakah ada tag <br>
+        // Cek tag <br>
         if (bioText.substring(charIndex, charIndex + 4) === "<br>") {
             textElement.innerHTML += "<br>";
             charIndex += 4;
-        } else {
+            setTimeout(typeWriter, 30);
+        } 
+        // Cek tag <span> untuk warna (agar tag tidak ikut diketik satu-satu)
+        else if (bioText.charAt(charIndex) === "<") {
+            let tagEnd = bioText.indexOf(">", charIndex);
+            textElement.innerHTML += bioText.substring(charIndex, tagEnd + 1);
+            charIndex = tagEnd + 1;
+            typeWriter(); // Lanjut langsung tanpa delay untuk tag
+        }
+        else {
             textElement.innerHTML += bioText.charAt(charIndex);
             charIndex++;
+            setTimeout(typeWriter, 30);
         }
-        setTimeout(typeWriter, 30); // Kecepatan ngetik disesuaikan
     } else if (textElement) {
-        // Efek kursor di akhir
         textElement.innerHTML += '<span class="text-cyan-400 animate-pulse">_</span>';
     }
 }
@@ -89,6 +93,5 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// Jalankan semua fungsi
 animate();
 typeWriter();
