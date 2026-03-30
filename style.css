@@ -49,25 +49,28 @@ main, section, #experience, nav, footer, .container, .max-w-6xl {
     text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
 }
 
-/* --- GLASSMORPHISM --- */
+/* --- GLASSMORPHISM (ULTRA TRANSPARENT) --- */
 .glass {
-    /* Background 1% agar bintang 99% terlihat di SEMUA menu */
-    background: rgba(255, 255, 255, 0.01) !important; 
+    /* 0.003 = Sangat transparan (0.3%), hampir murni bening */
+    background: rgba(255, 255, 255, 0.003) !important; 
     
-    /* Efek kaca buram agar teks tetap terbaca di atas bintang */
-    backdrop-filter: blur(10px) saturate(150%);
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    /* Blur tetap dipertahankan agar kesan 'kaca' tidak hilang */
+    /* Jika ingin lebih bening lagi, turunkan angka 12px ke 8px */
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
     
-    /* Border halus */
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
+    /* Border diperhalus agar tidak terlalu kontras */
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
 }
 
 .glass:hover {
+    /* Saat di-hover, baru kita munculkan sedikit warna agar user tahu itu tombol/kartu */
     background: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(0, 242, 255, 0.2);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+    border-color: rgba(0, 242, 255, 0.3);
 }
 
 /* --- UI ELEMENTS --- */
