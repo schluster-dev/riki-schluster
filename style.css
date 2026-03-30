@@ -7,7 +7,7 @@
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
-    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-bg: rgba(255, 255, 255, 0.01); /* Dibuat lebih tipis agar tembus */
     --glass-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -19,16 +19,17 @@
 }
 
 body {
-    background: var(--bg-dark);
+    /* Menghapus radial-gradient yang menutupi canvas bintang */
+    background: transparent; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 20%);
-    background-attachment: fixed;
     line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative; 
 }
 
 /* --- TYPOGRAPHY --- */
@@ -44,22 +45,20 @@ body {
 
 /* --- GLASSMORPHISM --- */
 .glass {
-    /* Kita turunkan dari 0.1 atau 0.05 ke 0.02 agar lebih tembus pandang */
-    background: rgba(255, 255, 255, 0.02); 
+    /* Menggunakan opacity 0.01 agar bintang di belakang terlihat jelas */
+    background: rgba(255, 255, 255, 0.01) !important; 
     
-    /* Efek kaca (blur) tetap dipertahankan agar teks tetap tajam */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    /* Efek kaca tetap dipertahankan dengan blur */
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
     
-    /* Border dibuat sangat tipis agar tetap elegan */
     border: 1px solid rgba(255, 255, 255, 0.05);
-    
-    /* Tambahan agar saat di-hover sedikit lebih terang */
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .glass:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(0, 242, 255, 0.2);
 }
 
 /* --- UI ELEMENTS --- */
@@ -91,7 +90,7 @@ body {
     50% { opacity: 0.6; }
 }
 
-/* Efek Scanline (Opsional via JS/HTML Class) */
+/* Efek Scanline */
 .scanline {
     width: 100%;
     height: 100px;
@@ -131,44 +130,36 @@ button[type="submit"] {
     .rpg-font { font-size: 0.55rem; }
 }
 
-main, nav, footer {
+/* Memastikan konten di atas canvas dan transparan */
+main, nav, footer, section {
     position: relative;
     z-index: 10;
+    background: transparent !important;
 }
 
+/* --- FIX CANVAS & LAYOUT --- */
 #space-canvas {
-    background: #050505; /* Warna dasar hitam jika gambar gagal muat */
-}
-
-/* --- FIX CANVAS & LAYOUT (PENTING) --- */
-#space-canvas {
+    background: #050505; /* Warna dasar dipindah ke sini agar tidak menutupi bintang */
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw !important; /* Paksa lebar layar penuh */
-    height: 100vh !important; /* Paksa tinggi layar penuh */
+    width: 100vw !important;
+    height: 100vh !important;
     z-index: -1;
     display: block;
-    pointer-events: none; /* Supaya tidak menghalangi klik pada menu */
+    pointer-events: none;
 }
 
 /* --- FIX TYPEWRITER ALIGNMENT --- */
 #typewriter-action {
-    /* Menghapus paksa efek centering dari flexbox jika ada di class induk */
     display: block !important; 
     text-align: left !important;
-    
-    /* Mengatur posisi dari atas */
     position: relative;
     top: 0;
     margin-top: 10px;
-    
-    /* Ukuran box agar muat teks panjang */
     min-height: 100px; 
     height: auto;
     width: 100%;
-    
-    /* Styling Teks */
     font-family: 'Rajdhani', sans-serif;
     font-size: 1.1rem;
     line-height: 1.6;
@@ -176,19 +167,8 @@ main, nav, footer {
     overflow: visible;
 }
 
-/* Tambahan agar saat mengetik teks tidak goyang */
 #typewriter-action br {
     display: block;
     content: "";
     margin-top: 10px;
-}
-
-/* --- CLEANUP BODY --- */
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
-    /* Memastikan konten di atas canvas */
-    position: relative; 
 }
