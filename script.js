@@ -1,19 +1,18 @@
-/* --- SCHLUSTER.OS - FULL SYSTEM ARCHITECTURE v2.2 --- */
-
-/* 1. FONTS & ASSETS */
+/* --- CUSTOM FONTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@300;400;600;700&display=swap');
 
-/* 2. CORE SYSTEM VARIABLES */
+/* --- CORE VARIABLES --- */
 :root {
     --neon-cyan: #00f2ff;
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
+    /* Glass tetap solid (0.03) tapi tembus bintang */
     --glass-bg: rgba(255, 255, 255, 0.03); 
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-/* 3. BASE RESET & GLOBAL FIX */
+/* --- BASE STYLING (BINTANG FIX) --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -22,11 +21,10 @@
 
 html {
     background-color: var(--bg-dark);
-    overflow-x: hidden;
-    width: 100%;
 }
 
 body {
+    /* PENTING: Body harus transparan agar bintang di canvas terlihat */
     background: transparent !important; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
@@ -36,44 +34,28 @@ body {
     min-height: 100vh;
     position: relative;
     z-index: 1;
-    width: 100%;
 }
 
-/* 4. CANVAS ENGINE (FIXED BACKGROUND) */
+/* --- FORCE TRANSPARENCY --- */
+main, section, #experience, #skills, nav, footer, 
+.container, .max-w-6xl, .relative, .grid {
+    background-color: transparent !important;
+}
+
+/* --- FIX CANVAS (THE REAL BACKGROUND) --- */
 #space-canvas {
-    position: fixed !important;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: -1 !important; 
+    z-index: -1 !important; /* Di belakang konten */
     display: block;
     pointer-events: none;
-    background-color: var(--bg-dark) !important;
+    background-color: var(--bg-dark) !important; /* Warna hitam pindah ke sini */
 }
 
-/* 5. POSITIONING & TRANSPARENCY OVERRIDES */
-/* Nav dikunci agar Sticky dan tetap memiliki efek Glass */
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border-bottom: 1px solid var(--glass-border);
-}
-
-main, section, footer {
-    background-color: transparent !important;
-}
-
-#experience, #skills, #education, #archives {
-    background-color: transparent !important;
-}
-
-/* 6. TYPOGRAPHY ENGINE */
+/* --- TYPOGRAPHY --- */
 .rpg-font {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.7rem;
@@ -84,11 +66,7 @@ main, section, footer {
     text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
 }
 
-h1, h2, h3, .orbitron {
-    font-family: 'Orbitron', sans-serif;
-}
-
-/* 7. GLASSMORPHISM & SOCIAL ICON GUARD */
+/* --- GLASSMORPHISM --- */
 .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(12px) saturate(150%);
@@ -99,20 +77,6 @@ h1, h2, h3, .orbitron {
     overflow: hidden;
 }
 
-/* KUNCI SOSMED TETAP KOTAK (DESKTOP STYLE) */
-.flex.gap-4 a .glass, 
-nav .glass.w-10, 
-footer .glass.w-10 {
-    flex-shrink: 0 !important;
-    aspect-ratio: 1 / 1 !important;
-    width: 44px !important; 
-    height: 44px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important;
-}
-
 .glass:hover {
     background: rgba(255, 255, 255, 0.07);
     border-color: rgba(0, 242, 255, 0.4);
@@ -120,7 +84,20 @@ footer .glass.w-10 {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* 8. ANIMATIONS & EFFECTS */
+/* --- UI ELEMENTS --- */
+.rpg-border {
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    position: relative;
+}
+
+.h-1 div {
+    position: relative;
+    border-radius: 2px;
+    transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1);
+}
+
+/* --- ANIMATIONS --- */
 @keyframes bars {
     0%, 100% { height: 10px; opacity: 0.5; }
     50% { height: 30px; opacity: 1; }
@@ -130,6 +107,7 @@ footer .glass.w-10 {
     animation: bars 1.2s infinite ease-in-out;
 }
 
+/* Efek Scanline */
 .scanline {
     width: 100%;
     height: 100px;
@@ -146,7 +124,57 @@ footer .glass.w-10 {
     100% { bottom: -100%; }
 }
 
-/* 9. MANIFEST BUTTON & SHIMMER */
+/* --- FORMS & INPUTS --- */
+input, textarea {
+    font-family: 'Rajdhani', sans-serif;
+    color: white !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+/* --- TYPEWRITER ALIGNMENT --- */
+#typewriter-action {
+    display: block !important; 
+    text-align: left !important;
+    position: relative;
+    min-height: 100px; 
+    height: auto;
+    width: 100%;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #b0b0b0;
+}
+
+#typewriter-action br {
+    display: block;
+    content: "";
+    margin-top: 10px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { 
+    background: var(--neon-cyan); 
+    border-radius: 10px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    h1 { font-size: 3rem !important; }
+    .rpg-font { font-size: 0.55rem; }
+}
+
+/* --- ADDED: DOWNLOAD BUTTON (SYSTEM MANIFEST) --- */
 .btn-manifest {
     position: relative;
     overflow: hidden;
@@ -160,11 +188,32 @@ footer .glass.w-10 {
     z-index: 10;
 }
 
+.btn-manifest:hover {
+    background: rgba(0, 242, 255, 0.15);
+    border-color: var(--neon-cyan);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.btn-manifest:active {
+    transform: translateY(-1px);
+}
+
+/* Efek Kilatan (Shimmer) untuk Tombol */
 .shimmer-bar {
     position: absolute;
-    top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent
+    );
     transform: skewX(-25deg);
+    transition: none;
 }
 
 .btn-manifest:hover .shimmer-bar {
@@ -176,80 +225,34 @@ footer .glass.w-10 {
     100% { left: 150%; }
 }
 
-/* 10. ARCHIVES VISUAL ENGINE */
-.aspect-\[16\/10\] {
-    position: relative;
-    padding-bottom: 62.5%; 
-    height: 0;
+/* --- ADDED: SKILL TREE BAR ENHANCEMENT --- */
+.skill-track {
+    height: 6px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.02);
+    position: relative;
 }
 
-.aspect-\[16\/10\] img {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover;
+.skill-fill {
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 10px currentColor; /* Mengikuti warna teks parent */
 }
 
-.group:hover img {
-    filter: grayscale(0%) brightness(110%);
+/* --- ADDED: SPECIAL UTILITIES --- */
+.tracking-tighter-2 {
+    letter-spacing: -0.05em;
 }
 
-.group .translate-y-10 {
-    transform: translateY(2rem);
+.text-8px {
+    font-size: 8px;
 }
 
-.group:hover .translate-y-0 {
-    transform: translateY(0);
-}
-
-/* 11. FORM ELEMENTS */
-input, textarea {
-    font-family: 'Rajdhani', sans-serif;
-    color: white !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-}
-
-/* 12. UTILITIES */
-.skill-track { height: 6px; width: 100%; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
-.skill-fill { height: 100%; border-radius: 10px; box-shadow: 0 0 10px currentColor; }
-.stat-value { font-family: 'Orbitron', sans-serif; text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); }
-.tracking-tighter-2 { letter-spacing: -0.05em; }
-.text-8px { font-size: 8px; }
-
-/* 13. CUSTOM SCROLLBAR */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 10px; box-shadow: 0 0 10px var(--neon-cyan); }
-
-/* 14. MOBILE RESPONSIVE ENGINE */
-@media (max-width: 768px) {
-    h1 { 
-        font-size: 2.2rem !important; 
-        line-height: 1.1;
-    }
-
-    /* Header tetap nempel di atas saat scroll mobile */
-    nav {
-        position: sticky;
-        top: 0;
-    }
-
-    .container {
-        padding-left: 1.25rem !important;
-        padding-right: 1.25rem !important;
-        max-width: 100vw !important;
-    }
-
-    /* Sembunyikan elemen hiasan yang makan tempat */
-    .animate-bars { display: none; }
-
-    /* Fix elemen .glass di mobile agar tidak overflow */
-    .glass {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
+/* Tambahkan Glow pada angka statistik */
+.stat-value {
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
