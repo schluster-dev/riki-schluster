@@ -1,58 +1,64 @@
-/* --- CUSTOM FONTS --- */
+/* --- SCHLUSTER.OS v2.1 - SOCIAL ICON FIX --- */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Rajdhani:wght@300;400;600;700&display=swap');
 
-/* --- CORE VARIABLES --- */
 :root {
     --neon-cyan: #00f2ff;
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
-    /* Glass tetap solid (0.03) tapi tembus bintang */
     --glass-bg: rgba(255, 255, 255, 0.03); 
     --glass-border: rgba(255, 255, 255, 0.1);
 }
 
-/* --- BASE STYLING (BINTANG FIX) --- */
+/* --- BASE & ANTI-SCROLL --- */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
+html, body {
     background-color: var(--bg-dark);
+    overflow-x: hidden; /* Ini kunci agar tidak scroll samping */
+    width: 100%;
 }
 
 body {
-    /* PENTING: Body harus transparan agar bintang di canvas terlihat */
     background: transparent !important; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    min-height: 100vh;
     position: relative;
     z-index: 1;
 }
 
-/* --- FORCE TRANSPARENCY --- */
-main, section, #experience, #skills, nav, footer, 
-.container, .max-w-6xl, .relative, .grid {
-    background-color: transparent !important;
-}
-
-/* --- FIX CANVAS (THE REAL BACKGROUND) --- */
+/* --- CANVAS BACKGROUND --- */
 #space-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: fixed !important;
+    top: 0; left: 0;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: -1 !important; /* Di belakang konten */
-    display: block;
-    pointer-events: none;
-    background-color: var(--bg-dark) !important; /* Warna hitam pindah ke sini */
+    z-index: -1 !important;
+    background-color: var(--bg-dark) !important;
+}
+
+/* --- GLASSMORPHISM & SOCIAL FIX --- */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mencegah icon sosial media memanjang di mobile */
+.flex.gap-4 .glass, 
+nav .glass,
+footer .glass {
+    flex-shrink: 0 !important; /* Jangan biarkan menciut/memanjang */
+    aspect-ratio: 1 / 1; /* Paksa tetap kotak sempurna */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* --- TYPOGRAPHY --- */
@@ -63,38 +69,7 @@ main, section, #experience, #skills, nav, footer,
 
 .neon-text {
     color: var(--neon-cyan);
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
-}
-
-/* --- GLASSMORPHISM --- */
-.glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border: 1px solid var(--glass-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.glass:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(0, 242, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* --- UI ELEMENTS --- */
-.rpg-border {
-    border: 2px solid var(--neon-cyan);
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-    position: relative;
-}
-
-.h-1 div {
-    position: relative;
-    border-radius: 2px;
-    transition: width 1.5s cubic-bezier(0.1, 0, 0.2, 1);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
 }
 
 /* --- ANIMATIONS --- */
@@ -102,273 +77,66 @@ main, section, #experience, #skills, nav, footer,
     0%, 100% { height: 10px; opacity: 0.5; }
     50% { height: 30px; opacity: 1; }
 }
+.animate-bars { animation: bars 1.2s infinite ease-in-out; }
 
-.animate-bars {
-    animation: bars 1.2s infinite ease-in-out;
-}
-
-/* Efek Scanline */
-.scanline {
-    width: 100%;
-    height: 100px;
-    z-index: 99;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
-    opacity: 0.1;
-    position: absolute;
-    bottom: 100%;
-    animation: scanline 8s linear infinite;
-}
-
-@keyframes scanline {
-    0% { bottom: 100%; }
-    100% { bottom: -100%; }
-}
-
-/* --- FORMS & INPUTS --- */
-input, textarea {
-    font-family: 'Rajdhani', sans-serif;
-    color: white !important;
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-}
-
-input::placeholder, textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.8rem;
-    text-transform: uppercase;
-}
-
-/* --- TYPEWRITER ALIGNMENT --- */
-#typewriter-action {
-    display: block !important; 
-    text-align: left !important;
-    position: relative;
-    min-height: 100px; 
-    height: auto;
-    width: 100%;
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #b0b0b0;
-}
-
-#typewriter-action br {
-    display: block;
-    content: "";
-    margin-top: 10px;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb { 
-    background: var(--neon-cyan); 
-    border-radius: 10px;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    h1 { font-size: 3rem !important; }
-    .rpg-font { font-size: 0.55rem; }
-}
-
-/* --- ADDED: DOWNLOAD BUTTON (SYSTEM MANIFEST) --- */
+/* --- MANIFEST BUTTON --- */
 .btn-manifest {
     position: relative;
     overflow: hidden;
     background: rgba(0, 242, 255, 0.05);
     border: 1px solid rgba(0, 242, 255, 0.3);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    z-index: 10;
 }
 
-.btn-manifest:hover {
-    background: rgba(0, 242, 255, 0.15);
-    border-color: var(--neon-cyan);
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-}
-
-.btn-manifest:active {
-    transform: translateY(-1px);
-}
-
-/* Efek Kilatan (Shimmer) untuk Tombol */
 .shimmer-bar {
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.1), 
-        transparent
-    );
+    top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transform: skewX(-25deg);
-    transition: none;
 }
+.btn-manifest:hover .shimmer-bar { animation: shimmer-run 1.5s infinite; }
+@keyframes shimmer-run { 0% { left: -100%; } 100% { left: 150%; } }
 
-.btn-manifest:hover .shimmer-bar {
-    animation: shimmer-run 1.5s infinite;
-}
-
-@keyframes shimmer-run {
-    0% { left: -100%; }
-    100% { left: 150%; }
-}
-
-/* --- ADDED: SKILL TREE BAR ENHANCEMENT --- */
-.skill-track {
-    height: 6px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.skill-fill {
-    height: 100%;
-    border-radius: 10px;
-    position: relative;
-    box-shadow: 0 0 10px currentColor; /* Mengikuti warna teks parent */
-}
-
-/* --- ADDED: SPECIAL UTILITIES --- */
-.tracking-tighter-2 {
-    letter-spacing: -0.05em;
-}
-
-.text-8px {
-    font-size: 8px;
-}
-
-/* Tambahkan Glow pada angka statistik */
-.stat-value {
-    font-family: 'Orbitron', sans-serif;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-/* --- SCHLUSTER ARCHIVES VISUAL ENGINE --- */
-
-/* Memastikan aspect ratio gambar konsisten di semua browser */
+/* --- ARCHIVES --- */
 .aspect-\[16\/10\] {
-    position: relative;
-    padding-bottom: 62.5%; /* 10 / 16 = 0.625 */
-    height: 0;
-    overflow: hidden;
+    position: relative; padding-bottom: 62.5%; height: 0; overflow: hidden;
 }
-
 .aspect-\[16\/10\] img {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
 }
 
-/* Penajaman filter grayscale saat hover */
-.group:hover img {
-    filter: grayscale(0%) brightness(110%);
-}
-
-/* Transisi overlay teks yang lebih dramatis (translate-y) */
-.group .translate-y-10 {
-    transform: translateY(2rem); /* translate-y-8 setara dengan 2rem */
-}
-
-.group:hover .translate-y-0 {
-    transform: translateY(0);
-}
-
-/* ============================================================
-   ENHANCEMENT & MOBILE OPTIMIZATION (SCHLUSTER_UPDATE_v2.1)
-   ============================================================ */
-
-/* 1. FIX CANVAS CLIPPING (PENTING UNTUK MOBILE) */
-/* Memastikan bintang tetap mengalir meski konten di-scroll panjang */
-#space-canvas {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    z-index: -1 !important;
-    pointer-events: none;
-    /* Menghapus potensi background putih saat loading di mobile */
-    background: #050505 !important;
-}
-
-/* 2. RESPONSIVE TYPOGRAPHY (AGAR TIDAK PENYOK/POTONG) */
+/* --- RESPONSIVE FIX (MOBILE ONLY) --- */
 @media (max-width: 768px) {
-    /* Mencegah judul utama meluap ke samping */
     h1 { 
-        font-size: 2.5rem !important; 
+        font-size: 2.2rem !important; 
         line-height: 1.1;
-        letter-spacing: -0.05em;
     }
 
-    /* Memperbaiki ukuran teks pada Project Archive (VISUAL_ARCHIVE_001) */
-    h4.text-xl {
-        font-size: 1rem !important;
-        letter-spacing: -0.01em;
+    /* Memastikan container tidak menekan konten ke samping */
+    .container {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+        width: 100% !important;
+        max-width: 100vw !important;
     }
 
-    /* Deskripsi project diperkecil agar pas di layar kecil */
-    p.text-sm {
-        font-size: 0.7rem !important;
-        line-height: 1.3;
+    /* Social Icons Tetap Kotak & Sejajar */
+    .flex.gap-4 {
+        justify-content: center; /* Rata tengah di mobile agar rapi */
+        flex-wrap: nowrap !important; /* Jangan biarkan turun ke bawah */
     }
 
-    /* Tombol/Link kecil di bawah project */
-    .rpg-font { 
-        font-size: 0.45rem !important; 
-        letter-spacing: 0.05em;
+    .flex.gap-4 a .glass {
+        width: 45px !important; /* Ukuran kotak tetap */
+        height: 45px !important;
+        padding: 0 !important; /* Hapus padding yang bikin memanjang */
     }
 
-    /* Menghindari kata yang terputus di tengah (hyphenation) */
-    h1, h4, p, span {
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        hyphens: auto;
-    }
-
-    /* Mengurangi padding container agar teks punya ruang lebih luas */
-    .group .p-6 {
-        padding: 1rem !important;
-    }
-    
-    /* Tombol Manifest di mobile */
-    .btn-manifest span {
-        font-size: 6px !important;
-        letter-spacing: 0.1em;
-    }
+    /* Sembunyikan elemen dekorasi berat di mobile */
+    .animate-bars { display: none; }
 }
 
-/* 3. ADDITIONAL VISUAL POLISH */
-
-/* Efek placeholder gambar saat loading (mencegah layout pecah) */
-.aspect-\[16\/10\] {
-    background: rgba(255, 255, 255, 0.02);
-}
-
-/* Glow tambahan saat hover pada kartu project */
-.group:hover {
-    box-shadow: 0 0 25px rgba(0, 242, 255, 0.1);
-}
-
-/* Pastikan section education tidak menutupi canvas dengan background solid */
-#education, #archives, #skills {
-    background: transparent !important;
-}
-
-/* Custom Scrollbar Glow (Chrome/Safari) */
-::-webkit-scrollbar-thumb {
-    background: var(--neon-cyan);
-    box-shadow: 0 0 10px var(--neon-cyan);
-}
+/* Utility tambahan */
+.tracking-tighter-2 { letter-spacing: -0.05em; }
+.text-8px { font-size: 8px; }
+#typewriter-action { min-height: 80px; }
