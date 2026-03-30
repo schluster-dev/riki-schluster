@@ -1,0 +1,47 @@
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&family=Rajdhani:wght@400;600&display=swap');
+
+:root {
+    --neon-cyan: #00f2ff;
+    --neon-purple: #bc13fe;
+    --bg-dark: #050505;
+}
+
+body { 
+    background: var(--bg-dark); 
+    color: #e0e0e0; 
+    font-family: 'Rajdhani', sans-serif; 
+    background-image: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #050505 100%);
+    scroll-behavior: smooth;
+}
+
+/* Glassmorphism Effect */
+.glass { 
+    background: rgba(255, 255, 255, 0.03); 
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rpg-border { 
+    border: 2px solid var(--neon-cyan); 
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); 
+}
+
+.neon-text { 
+    text-shadow: 0 0 8px var(--neon-cyan); 
+}
+
+.rpg-font { 
+    font-family: 'Press Start 2P', cursive; 
+    font-size: 0.65rem; 
+}
+
+/* Music Visualizer Animation */
+@keyframes bars {
+    0%, 100% { height: 10px; }
+    50% { height: 25px; }
+}
+
+.animate-bars {
+    animation: bars 1s infinite ease-in-out;
+}
