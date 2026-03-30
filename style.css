@@ -7,24 +7,24 @@
     --neon-purple: #bc13fe;
     --neon-green: #22c55e;
     --bg-dark: #050505;
-    --glass-bg: rgba(255, 255, 255, 0.003); /* Dipertipis agar bintang tajam */
-    --glass-border: rgba(255, 255, 255, 0.08);
+    /* Glass sangat tipis (0.1%) agar bintang tajam */
+    --glass-bg: rgba(255, 255, 255, 0.001); 
+    --glass-border: rgba(255, 255, 255, 0.05);
 }
 
-/* --- BASE STYLING --- */
+/* --- BASE STYLING (THE FOUNDATION) --- */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-/* PENTING: html harus punya warna dasar agar tidak putih saat loading, 
-   tapi body harus transparan agar canvas terlihat */
 html {
     background-color: var(--bg-dark);
 }
 
 body {
+    /* PENTING: Body harus transparan total agar canvas di belakang terlihat */
     background: transparent !important; 
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
@@ -33,17 +33,49 @@ body {
     scroll-behavior: smooth;
     min-height: 100vh;
     position: relative;
-    /* Kita angkat semua konten ke z-index positif */
-    z-index: 1; 
+    z-index: 1;
 }
 
-/* --- FORCE TRANSPARENCY (KUNCI UTAMA) --- */
-/* Kita paksa semua kontainer pembungkus agar tidak punya warna background hitam */
+/* --- FORCE TRANSPARENCY (MENGHAPUS SEMUA LAYER HITAM) --- */
+/* Kode ini memaksa semua container Tailwind agar tidak menutupi bintang */
 main, section, #experience, nav, footer, 
-.container, .max-w-6xl, .relative, .grid, 
-[class*="bg-slate"], [class*="bg-gray"], [class*="bg-black"] {
+.container, .max-w-6xl, .relative, .grid,
+[class*="bg-slate"], [class*="bg-gray"], [class*="bg-black"], [class*="bg-zinc"] {
     background-color: transparent !important;
     background-image: none !important;
+}
+
+/* --- FIX CANVAS (AS THE REAL BACKGROUND) --- */
+#space-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    /* Dilempar ke paling belakang */
+    z-index: -1 !important; 
+    display: block;
+    pointer-events: none;
+    /* Warna hitam dasar dipindah ke sini */
+    background-color: var(--bg-dark) !important;
+}
+
+/* --- GLASSMORPHISM (ULTRA CLEAR) --- */
+.glass {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass:hover {
+    /* Saat hover baru muncul sedikit warna agar interaktif */
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(0, 242, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* --- TYPOGRAPHY --- */
@@ -55,24 +87,6 @@ main, section, #experience, nav, footer,
 .neon-text {
     color: var(--neon-cyan);
     text-shadow: 0 0 10px rgba(0, 242, 255, 0.5), 0 0 20px rgba(0, 242, 255, 0.2);
-}
-
-/* --- GLASSMORPHISM --- */
-.glass {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    /* Memastikan glass tidak menimpa bintang tapi tetap di bawah teks */
-    z-index: 2; 
-}
-
-.glass:hover {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(0, 242, 255, 0.3);
 }
 
 /* --- UI ELEMENTS --- */
@@ -103,6 +117,7 @@ main, section, #experience, nav, footer,
     50% { opacity: 0.6; }
 }
 
+/* Efek Scanline */
 .scanline {
     width: 100%;
     height: 100px;
@@ -145,20 +160,6 @@ button[type="submit"] {
     .rpg-font { font-size: 0.55rem; }
 }
 
-/* --- FIX CANVAS & LAYOUT (KUNCI POSISI) --- */
-#space-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100vh !important;
-    /* Kita turunkan z-index jauh ke bawah agar tidak ada yang menghalangi */
-    z-index: -100 !important; 
-    display: block;
-    pointer-events: none;
-    background: var(--bg-dark); 
-}
-
 /* --- FIX TYPEWRITER ALIGNMENT --- */
 #typewriter-action {
     display: block !important; 
@@ -182,7 +183,14 @@ button[type="submit"] {
     margin-top: 10px;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 10px; }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 10px;
+}
