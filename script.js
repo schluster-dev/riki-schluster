@@ -11,21 +11,47 @@ function typeWriter() {
     }
 }
 
-// Integrasi Apps Script (Ganti URL dengan milik Anda)
+// Integrasi Apps Script
 const scriptURL = 'https://script.google.com/macros/s/AKfycbxlOufLu5a-_umYnVvXh5eDLwAGofpaxs5TIHWKShSOcOxOFFZDtdT-zkbiqvogCo1NcQ/exec';
 
 function handleContactForm() {
     const form = document.getElementById('contact-form');
+    const btn = document.getElementById('submit-btn');
+
     if(form) {
         form.addEventListener('submit', e => {
             e.preventDefault();
-            alert("Quest Log Updated: Message Sent!");
-            // Logika fetch ke Apps Script bisa ditaruh di sini
+            btn.disabled = true;
+            btn.innerHTML = "TRANSMITTING...";
+
+            // Mengambil data dari form
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                alert("QUEST COMPLETE: Quest Log Updated!");
+                form.reset();
+                btn.disabled = false;
+                btn.innerHTML = "EXECUTE TRANSMISSION";
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("TRANSMISSION ERROR: Check your connection.");
+                btn.disabled = false;
+                btn.innerHTML = "RETRY TRANSMISSION";
+            });
         });
     }
 }
 
-// Inisialisasi saat halaman dimuat
 window.onload = () => {
     typeWriter();
     handleContactForm();
