@@ -1,4 +1,5 @@
-const bioText = "Lifelong learner, Civil Servant (ASN), and IT professional with a passion for AI and digital creativity. My journey is defined by persistence: the belief that even dust can transform into stone. Bridging the gap between school IT infrastructure, digital arts, and generative music.";
+// COMPLEX BIO CONFIGURATION
+const bioText = "Lifelong learner, Civil Servant (ASN), and IT Specialist at SMKN 3 Linggabuana. I thrive in the intersection of digital infrastructure and creative expression. My life's philosophy is persistence: believing that even dust can transform into stone. Expert in optimizing school operations through Google Apps Script and modern web technologies, while maintaining a creative soul as an AI music producer and digital illustrator.";
 let index = 0;
 
 function typeWriter() {
@@ -6,11 +7,11 @@ function typeWriter() {
     if (element && index < bioText.length) {
         element.innerHTML += bioText.charAt(index);
         index++;
-        setTimeout(typeWriter, 35);
+        setTimeout(typeWriter, 30);
     }
 }
 
-// Integrasi Apps Script (Sama seperti sebelumnya)
+// FORM HANDLING (APPS SCRIPT)
 const scriptURL = 'https://script.google.com/macros/s/AKfycbxlOufLu5a-_umYnVvXh5eDLwAGofpaxs5TIHWKShSOcOxOFFZDtdT-zkbiqvogCo1NcQ/exec';
 
 function handleContactForm() {
@@ -21,7 +22,7 @@ function handleContactForm() {
         form.addEventListener('submit', e => {
             e.preventDefault();
             btn.disabled = true;
-            btn.innerHTML = "TRANSMITTING...";
+            btn.innerHTML = "TRANSMITTING TO ARCHIVE...";
 
             const formData = new FormData(form);
             const data = {
@@ -32,13 +33,13 @@ function handleContactForm() {
 
             fetch(scriptURL, { method: 'POST', body: JSON.stringify(data)})
             .then(response => {
-                alert("QUEST COMPLETE: Message Sent Successfully!");
+                alert("QUEST COMPLETE: Your message has been archived!");
                 form.reset();
                 btn.disabled = false;
-                btn.innerHTML = "SEND MESSAGE (QUEST SUBMIT)";
+                btn.innerHTML = "EXECUTE TRANSMISSION (SEND)";
             })
             .catch(error => {
-                alert("ERROR: Transmission failed.");
+                alert("CRITICAL ERROR: Transmission failed.");
                 btn.disabled = false;
                 btn.innerHTML = "RETRY TRANSMISSION";
             });
