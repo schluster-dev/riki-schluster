@@ -48,7 +48,7 @@ for (let i = 0; i < starCount; i++) {
 }
 
 const textElement = document.getElementById('typewriter-action');
-const bioText = "Membangun jembatan antara efisiensi birokrasi dan kreativitas digital. Spesialis dalam arsitektur sistem kearsipan dan pengembangan visual interaktif.";
+const bioText = "const bioText = "A lifelong learner, Civil Servant (ASN), and Digital Alchemist. I believe even the smallest dust, through persistence, can transform into stone. From IT infrastructure to AI-generated symphonies, I evolve through every challenge.";";
 let charIndex = 0;
 
 function typeWriter() {
