@@ -75,88 +75,82 @@ function typeWriter() {
     }
 }
 
-// --- 3. STARSHIP MUSIC HUB LOGIC ---
-var player;
-// YouTube API membutuhkan fungsi ini di level global (window)
-window.onYouTubeIframeAPIReady = function() {
-    const iframe = document.querySelector('.group\\/yt iframe');
-    if (iframe) {
-        iframe.id = "youtube-player-id";
-        let currentSrc = iframe.getAttribute('src');
-        if(!currentSrc.includes('enablejsapi=1')) {
-            iframe.setAttribute('src', currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'enablejsapi=1');
-        }
+// --- SCHLUSTER TACTICAL FLEET LOGIC (v5.0 - CLICK MODE) ---
 
-        player = new YT.Player(iframe.id, {
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
-};
-
-function onPlayerReady(event) {
-    const ytIcon = document.querySelector('.group\\/yt div[class*="bg-red-600"]');
-    const sfxBlip = document.getElementById('sfx-blip');
-    
-    if (ytIcon) {
-        ytIcon.addEventListener('click', function() {
-            if (sfxBlip) { sfxBlip.currentTime = 0; sfxBlip.play(); }
-            
-            var state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        });
-    }
-}
-
-function initMusicHub() {
+function initTacticalFleet() {
     const starshipToggle = document.getElementById('music-toggle');
+    const shipSpotify = document.getElementById('ship-spotify');
+    const shipYoutube = document.getElementById('ship-youtube');
+    
+    // SFX Elements
     const sfxBlip = document.getElementById('sfx-blip');
     const sfxLaunch = document.getElementById('sfx-launch');
+    const sfxPower = document.getElementById('sfx-power');
 
-    if (starshipToggle) {
-        const playBlip = () => {
-            if (sfxBlip) {
-                sfxBlip.currentTime = 0;
-                sfxBlip.volume = 0.15;
-                sfxBlip.play().catch(() => {});
+    // Pastikan elemen ada
+    if (starshipToggle && shipSpotify && shipYoutube) {
+        
+        // Fungsi untuk memainkan SFX
+        const playSfx = (audio, vol = 0.2) => {
+            if (audio) {
+                audio.currentTime = 0;
+                audio.volume = vol;
+                audio.play().catch(() => {}); // Hindari error browser policy
             }
         };
 
-        starshipToggle.addEventListener('mouseenter', playBlip);
-        
+        // 1. MOTHERSHIP INTERACTION (Hover)
+        // Tetap pakai hover untuk memunculkan hangar armada di mobile/desktop
+        starshipToggle.addEventListener('mouseenter', () => playSfx(sfxBlip, 0.1));
         starshipToggle.addEventListener('click', () => {
-            playBlip();
-            if (sfxLaunch) {
-                sfxLaunch.currentTime = 0;
-                sfxLaunch.volume = 0.2;
-                sfxLaunch.play().catch(() => {});
-            }
-            // Toggle class untuk menampilkan menu di mobile atau efek tambahan
-            starshipToggle.parentElement.classList.toggle('active-menu');
+            playSfx(sfxBlip, 0.2);
+            playSfx(sfxLaunch, 0.1);
+            // Toggle class untuk mobile agar hangar tidak tertutup
+            starshipToggle.parentElement.classList.toggle('active-music-menu');
         });
-    }
 
-    // Load YouTube API Script
-    if (!window.YT) {
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // 2. ESCORT SHIPS INTERACTION (Click to Play)
+        
+        // Fungsi untuk men-toggle panel player
+        const togglePlayer = (shipElement, audio) => {
+            const panel = shipElement.querySelector('.player-panel');
+            // Cek apakah panel sedang terbuka
+            const isOpen = !panel.classList.contains('hidden');
+
+            // Tutup semua panel terbuka lainnya dulu
+            document.querySelectorAll('.player-panel').forEach(p => p.classList.add('hidden'));
+
+            // Toggle panel yang diklik
+            if (isOpen) {
+                panel.classList.add('hidden');
+            } else {
+                panel.classList.remove('hidden');
+                playSfx(audio, 0.2); // Suara panel terbuka
+            }
+        };
+
+        // Klik pada Kapal Spotify
+        shipSpotify.querySelector('.ship-spot-mantis').addEventListener('click', function(e) {
+            e.stopPropagation(); // Mencegah Mothership ikut terklik
+            togglePlayer(shipSpotify, sfxPower);
+        });
+
+        // Klik pada Kapal YouTube
+        shipYoutube.querySelector('.ship-yt-raven').addEventListener('click', function(e) {
+            e.stopPropagation(); // Mencegah Mothership ikut terklik
+            togglePlayer(shipYoutube, sfxPower);
+        });
+
+        // Tutup panel jika klik di luar armada
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.player-panel').forEach(p => p.classList.add('hidden'));
+        });
     }
 }
 
-// --- 4. INITIALIZE ALL SYSTEMS ---
+// Panggil fungsi ini di dalam DOMContentLoaded kamu
+// (Hapus panggilan initMusicHub lama)
 document.addEventListener('DOMContentLoaded', () => {
-    resize();
-    animate();
-    if(textElement) {
-        textElement.innerHTML = "";
-        typeWriter();
-    }
-    initMusicHub();
+    // ... (logic bintang & typewriter tetap sama) ...
+    initTacticalFleet();
 });
