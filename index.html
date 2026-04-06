@@ -257,54 +257,84 @@
     </div>
        </section>
         
-<section id="skills" class="mb-32">
-    <div class="flex items-end gap-4 mb-12">
-        <h3 class="text-4xl font-bold tracking-tighter uppercase" style="font-family: 'Orbitron', sans-serif;">Skill Tree</h3>
-        <div class="h-[1px] flex-grow bg-gradient-to-r from-cyan-500 to-transparent mb-3"></div>
+<section id="skills" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="flex items-center gap-4 mb-12">
+        <div class="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+        <h2 class="text-3xl font-black italic tracking-tighter rpg-font bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">
+            SKILL_TREE.SYS
+        </h2>
+        <div class="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
     </div>
 
     <div class="grid md:grid-cols-3 gap-8">
-        <div class="glass p-6 rounded-2xl border-cyan-500/10 hover:border-cyan-500/30 transition-all">
-            <p class="text-[8px] rpg-font text-cyan-500 mb-6 tracking-[0.3em]">01 // ARCHITECT_CORE</p>
+        <div class="glass p-6 rounded-2xl border-cyan-500/10 hover:border-cyan-500/30 transition-all group">
+            <p class="text-[8px] rpg-font text-cyan-500 mb-6 tracking-[0.3em] flex items-center gap-2">
+                <i class="fa-solid fa-database"></i> 01 // DIGITAL_ARCHITECT
+            </p>
             <div class="space-y-6">
                 <div class="skill-item">
                     <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
-                        <span>Digital Archiving</span>
-                        <span class="text-cyan-400">Lv. 92</span>
+                        <span>Digital Archiving</span><span class="text-cyan-400">95%</span>
                     </div>
-                    <div class="skill-track">
-                        <div class="skill-fill bg-cyan-500" style="width: 92%; color: #00f2ff;"></div>
-                    </div>
+                    <div class="skill-track"><div class="skill-fill bg-cyan-500" style="width: 95%;"></div></div>
                 </div>
-                </div>
-        </div>
-
-        <div class="glass p-6 rounded-2xl border-purple-500/10 hover:border-purple-500/30 transition-all">
-            <p class="text-[8px] rpg-font text-purple-500 mb-6 tracking-[0.3em]">02 // CREATIVE_AI</p>
-            <div class="space-y-6">
                 <div class="skill-item">
                     <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
-                        <span>Stable Diffusion</span>
-                        <span class="text-purple-400">Lv. 88</span>
+                        <span>Google Apps Script</span><span class="text-cyan-400">90%</span>
                     </div>
-                    <div class="skill-track">
-                        <div class="skill-fill bg-purple-500" style="width: 88%; color: #bc13fe;"></div>
+                    <div class="skill-track"><div class="skill-fill bg-cyan-500" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
+                        <span>MS Office Suite</span><span class="text-cyan-400">98%</span>
                     </div>
+                    <div class="skill-track"><div class="skill-fill bg-cyan-500" style="width: 98%;"></div></div>
                 </div>
             </div>
         </div>
 
-        <div class="glass p-6 rounded-2xl border-green-500/10 hover:border-green-500/30 transition-all">
-            <p class="text-[8px] rpg-font text-green-500 mb-6 tracking-[0.3em]">03 // DEV_ENGINE</p>
+        <div class="glass p-6 rounded-2xl border-purple-500/10 hover:border-purple-500/30 transition-all group">
+            <p class="text-[8px] rpg-font text-purple-500 mb-6 tracking-[0.3em] flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> 02 // CREATIVE_LABS
+            </p>
             <div class="space-y-6">
                 <div class="skill-item">
                     <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
-                        <span>Python Automation</span>
-                        <span class="text-green-400">Lv. 75</span>
+                        <span>Prompt Engineering</span><span class="text-purple-400">92%</span>
                     </div>
-                    <div class="skill-track">
-                        <div class="skill-fill bg-green-500" style="width: 75%; color: #22c55e;"></div>
+                    <div class="skill-track"><div class="skill-fill bg-purple-500" style="width: 92%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
+                        <span>Music Prod (Suno)</span><span class="text-purple-400">88%</span>
                     </div>
+                    <div class="skill-track"><div class="skill-fill bg-purple-500" style="width: 88%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
+                        <span>Video Editing</span><span class="text-purple-400">85%</span>
+                    </div>
+                    <div class="skill-track"><div class="skill-fill bg-purple-500" style="width: 85%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass p-6 rounded-2xl border-green-500/10 hover:border-green-500/30 transition-all group">
+            <p class="text-[8px] rpg-font text-green-500 mb-6 tracking-[0.3em] flex items-center gap-2">
+                <i class="fa-solid fa-code"></i> 03 // DEV_ENGINE
+            </p>
+            <div class="space-y-6">
+                <div class="skill-item">
+                    <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
+                        <span>JS & Python</span><span class="text-green-400">80%</span>
+                    </div>
+                    <div class="skill-track"><div class="skill-fill bg-green-500" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="flex justify-between text-[10px] mb-2 font-bold uppercase tracking-widest">
+                        <span>Ren'Py & Godot</span><span class="text-green-400">75%</span>
+                    </div>
+                    <div class="skill-track"><div class="skill-fill bg-green-500" style="width: 75%;"></div></div>
                 </div>
             </div>
         </div>
