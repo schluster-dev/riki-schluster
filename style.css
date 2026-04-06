@@ -461,48 +461,9 @@ input::placeholder, textarea::placeholder {
     }
 }
 
-/* Animasi Piringan Hitam */
-@keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+/* --- SCHLUSTER STARSHIP PLAYER (v3.2 - FIXED) --- */
 
-.animate-spin-slow {
-    animation: spin-slow 4s linear infinite;
-}
-
-/* Support untuk klik di Mobile (jika hover tidak jalan) */
-.active-music-menu #music-menu {
-    opacity: 1 !important;
-    translate: 0 0 !important;
-    pointer-events: auto !important;
-}
-
-/* Mempercantik tampilan icon di dalam lingkaran */
-#music-menu a {
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-/* Pastikan player muncul di kiri icon */
-#music-menu .flex {
-    justify-content: flex-end;
-}
-
-/* Animasi munculnya player */
-.group\/spot:hover div, .group\/yt:hover div {
-    animation: slideInRight 0.3s ease-out;
-}
-
-@keyframes slideInRight {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-/* --- SCHLUSTER STARSHIP PLAYER STYLES --- */
-
-/* Container Utama Pesawat */
+/* 1. Container Utama & Animasi Idle */
 .starship-container {
     width: 70px;
     height: 70px;
@@ -510,113 +471,121 @@ input::placeholder, textarea::placeholder {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* Efek getaran pesawat saat terbang */
+    z-index: 20;
+    /* Getaran terbang saat diam */
     animation: flight-wobble 4s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Body Utama Pesawat (Bentuk Diamond/Hexagon) */
+/* 2. Logic Hover - Mencegah Kedipan (Flicker) */
+.group:hover .starship-container {
+    /* Matikan wobble idle agar tidak bentrok dengan animasi takeoff */
+    animation: flight-takeoff 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+    transform: scale(1.1);
+}
+
+/* 3. Body Pesawat */
 .starship-body {
     width: 100%;
     height: 100%;
-    border-radius: 50% 50% 15% 15%; /* Bentuk Aerodinamis */
+    border-radius: 50% 50% 15% 15%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
+    background: var(--glass-bg);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 242, 255, 0.3);
 }
 
 .central-icon {
     filter: drop-shadow(0 0 5px var(--neon-cyan));
 }
 
-/* Sayap Pesawat */
+/* 4. Sayap Pesawat */
 .starship-wing {
     position: absolute;
     top: 50%;
     width: 25px;
     height: 15px;
     z-index: 5;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
+    background: rgba(0, 20, 30, 0.9);
 }
 
 .wing-left {
-    left: -15px;
+    left: -12px;
     transform: translateY(-50%) skewY(-20deg);
     border-radius: 5px 0 0 5px;
+    border-left: 1px solid var(--neon-cyan);
 }
 
 .wing-right {
-    right: -15px;
+    right: -12px;
     transform: translateY(-50%) skewY(20deg);
     border-radius: 0 5px 5px 0;
+    border-right: 1px solid var(--neon-cyan);
 }
 
 /* Sayap membuka saat hover */
-.starship-container:hover .wing-left { left: -20px; transform: translateY(-50%) skewY(-10deg); }
-.starship-container:hover .wing-right { right: -20px; transform: translateY(-50%) skewY(10deg); }
+.group:hover .wing-left { left: -22px; transform: translateY(-50%) skewY(-10deg); opacity: 1; }
+.group:hover .wing-right { right: -22px; transform: translateY(-50%) skewY(10deg); opacity: 1; }
 
-/* Jet Thruster (Api Roket di Bawah) */
+/* 5. Jet Thruster (Api Roket) */
 .thruster-container {
     position: absolute;
-    bottom: -10px;
-    left: 1/2;
+    bottom: -8px;
+    left: 50%;
     transform: translateX(-50%);
-    width: 20px;
-    height: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 15px;
+    height: 25px;
     z-index: 1;
 }
 
 .fire-core {
-    width: 8px;
+    width: 6px;
     height: 100%;
+    margin: 0 auto;
+    background: #fff;
     border-radius: 0 0 50% 50%;
-    box-shadow: 0 0 10px #fff;
+    box-shadow: 0 0 10px var(--neon-cyan);
 }
 
-.fire-glow {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 80%;
-    border-radius: 50%;
-    filter: blur(5px);
-    opacity: 0.8;
+/* Kedipan Api Jet (Selalu aktif / Loop) */
+.animate-thruster-glow {
+    animation: thruster-glow 0.08s infinite alternate;
 }
 
-/* --- ANIMATIONS --- */
+/* 6. Player Menu Support */
+#music-menu {
+    z-index: 15;
+    margin-right: 15px;
+}
 
-/* 1. Getaran Terbang Halus */
+/* Support klik mobile */
+.active-music-menu #music-menu {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+/* --- KEYFRAMES --- */
+
+/* Getaran Idle */
 @keyframes flight-wobble {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-3px) rotate(1deg); }
-    75% { transform: translateY(3px) rotate(-1deg); }
+    25% { transform: translateY(-3px) rotate(1.5deg); }
+    75% { transform: translateY(3px) rotate(-1.5deg); }
 }
 
-/* 2. Kedipan Api Jet */
-@keyframes thruster-glow {
-    0%, 100% { transform: scaleY(1); opacity: 0.8; }
-    50% { transform: scaleY(1.3) scaleX(1.1); opacity: 1; filter: blur(7px); }
-}
-
-.animate-thruster-glow {
-    animation: thruster-glow 0.1s infinite; /* Sangat cepat */
-}
-
-/* 3. Animasi Pesawat Meluncur saat Hover (Efek Keren) */
-.group:hover .starship-container {
-    animation: flight-takeoff 0.5s ease-out forwards, thruster-glow 0.1s infinite;
-}
-
+/* Efek Takeoff saat Hover */
 @keyframes flight-takeoff {
     0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(-5px); }
+    100% { transform: translateY(-15px); } /* Berhenti di posisi atas */
 }
 
-/* Menyesuaikan jarak menu agar pas di kiri pesawat */
-#music-menu {
-    margin-right: 10px;
+/* Animasi Api Jet */
+@keyframes thruster-glow {
+    0% { transform: scaleY(0.8); opacity: 0.7; filter: blur(3px); }
+    100% { transform: scaleY(1.3); opacity: 1; filter: blur(6px); }
 }
