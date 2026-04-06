@@ -575,10 +575,20 @@ input::placeholder, textarea::placeholder {
 
 /* Thruster Mini untuk Escorts */
 @keyframes thruster-glow-mini {
-    0% { transform: scaleY(0.7) translateX(-50%); opacity: 0.6; }
-    100% { transform: scaleY(1.1) translateX(-50%); opacity: 0.9; }
+    0% { 
+        transform: scaleY(0.7); 
+        opacity: 0.6; 
+    }
+    100% { 
+        transform: scaleY(1.2); 
+        opacity: 0.9; 
+    }
 }
-.animate-thruster-glow-mini { animation: thruster-glow-mini 0.1s infinite alternate; }
+.animate-thruster-glow-mini { 
+    animation: thruster-glow-mini 0.1s infinite alternate; 
+    /* Pastikan origin-nya di atas agar api memanjang ke bawah */
+    transform-origin: top; 
+}
 
 /* Support klik mobile */
 .active-music-menu #fleet-hangar {
