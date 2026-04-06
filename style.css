@@ -460,3 +460,29 @@ input::placeholder, textarea::placeholder {
         margin-bottom: 2rem; /* Di HP jangan terlalu jauh jaraknya */
     }
 }
+
+/* Animasi Piringan Hitam */
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 4s linear infinite;
+}
+
+/* Support untuk klik di Mobile (jika hover tidak jalan) */
+.active-music-menu #music-menu {
+    opacity: 1 !important;
+    translate: 0 0 !important;
+    pointer-events: auto !important;
+}
+
+/* Mempercantik tampilan icon di dalam lingkaran */
+#music-menu a {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
