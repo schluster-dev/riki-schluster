@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel Dossier | Ridho Kiswanto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Rajdhani', sans-serif; background-color: #020617; color: #94a3b8; margin: 0; }
+        .header-font { font-family: 'Orbitron', sans-serif; }
+        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(6, 182, 212, 0.2); }
+        .skill-bar { height: 4px; background: rgba(6, 182, 212, 0.1); border-radius: 2px; position: relative; overflow: hidden; }
+        .skill-progress { position: absolute; top: 0; left: 0; height: 100%; background: #06b6d4; box-shadow: 0 0 10px #06b6d4; }
+        
+        @media print { 
+            .no-print { display: none !important; } 
+            body { background: white !important; color: black !important; } 
+            .glass-card { border: 1px solid #eee !important; background: white !important; box-shadow: none !important; color: black !important; margin: 0 !important; border-radius: 0 !important; }
+            .text-white, .header-font { color: black !important; }
+            .text-cyan-400, .text-cyan-500 { color: #0891b2 !important; }
+            .bg-slate-900\/40, .bg-slate-900\/50 { background: #fdfdfd !important; border: 1px solid #eee !important; }
+            .skill-bar { background: #eee !important; border: 1px solid #ddd !important; }
+            .skill-progress { background: #000 !important; box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-5xl mx-auto no-print mb-6 flex justify-between items-center glass-card p-4 rounded-2xl">
+        <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-[10px] tracking-widest uppercase font-bold text-slate-400">Status: Active_Duty // Database: Sasmitha_Cloud</span>
+        </div>
+        <button onclick="window.print()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-bold px-6 py-2 rounded-lg transition-all flex items-center gap-2">
+            <i class="fa-solid fa-print"></i> GENERATE_HARDCOPY
+        </button>
+    </div>
+
+    <div class="max-w-5xl mx-auto glass-card rounded-3xl shadow-2xl overflow-hidden border border-cyan-500/10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 border-b border-slate-800">
+            <div class="p-10 bg-slate-900/50 flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-slate-800">
+                <div class="w-32 h-40 bg-slate-800 rounded-lg border border-cyan-500/20 flex items-center justify-center relative overflow-hidden group">
+                    <img src="https://0.gravatar.com/avatar/16b31672f95e3c553980791b4e97e450f02e4a288656a1510771c0c87c65ae91?size=256" 
+                         alt="Ridho Kiswanto" 
+                         class="w-full h-full object-cover transition duration-500 grayscale group-hover:grayscale-0">
+                    <div class="absolute inset-0 bg-gradient-to-t from-cyan-500/10 to-transparent pointer-events-none"></div>
+                </div>
+                <p class="text-[9px] text-cyan-500 uppercase font-bold mt-4 tracking-tighter">ID: RK-121096-S3L</p>
+            </div>
+            <div class="md:col-span-3 p-10 flex flex-col justify-center">
+                <h1 class="header-font text-5xl font-black text-white tracking-tighter uppercase leading-none">Ridho Kiswanto</h1>
+                <p class="text-cyan-400 font-bold tracking-[0.4em] uppercase text-[11px] mt-3">Digital Architect & Operator Layanan Operasional</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10">
+                    <div class="border-l border-slate-700 pl-4">
+                        <p class="text-[9px] uppercase text-slate-500">Official_Registry</p>
+                        <p class="text-xs text-white">NIK 1210201211960003</p>
+                    </div>
+                    <div class="border-l border-slate-700 pl-4">
+                        <p class="text-[9px] uppercase text-slate-500">Birth_Record</p>
+                        <p class="text-xs text-white">Labuhanbatu, 12 Okt 1996</p>
+                    </div>
+                    <div class="border-l border-slate-700 pl-4">
+                        <p class="text-[9px] uppercase text-slate-500">Current_Base</p>
+                        <p class="text-xs text-white">Purwakarta, West Java</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12">
+            <div class="md:col-span-4 p-10 bg-slate-900/30 border-r border-slate-800 space-y-12">
+                <section>
+                    <h3 class="text-white font-bold uppercase text-[10px] tracking-widest mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-code text-cyan-500"></i> Technical_Specs
+                    </h3>
+                    <div class="space-y-5">
+                        <div class="group">
+                            <div class="flex justify-between text-[10px] mb-2">
+                                <span class="text-slate-400 uppercase">Digital Archiving</span>
+                                <span class="text-cyan-400 font-bold">92%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between text-[10px] mb-2">
+                                <span class="text-slate-400 uppercase">Google Apps Script</span>
+                                <span class="text-cyan-400 font-bold">88%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between text-[10px] mb-2">
+                                <span class="text-slate-400 uppercase">IT Maintenance</span>
+                                <span class="text-cyan-400 font-bold">98%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 98%"></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="text-white font-bold uppercase text-[10px] tracking-widest mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-cyan-500"></i> AI_Integration
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[9px] rounded uppercase">Stable Diffusion</span>
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[9px] rounded uppercase">AI Music Gen</span>
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[9px] rounded uppercase">Prompt Engineer</span>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="text-white font-bold uppercase text-[10px] tracking-widest mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-address-book text-cyan-500"></i> Contact_Interface
+                    </h3>
+                    <ul class="text-[11px] space-y-4">
+                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[8px] mb-1">Email_Channel</span> Ridhokiswanto01@gmail.com</li>
+                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[8px] mb-1">Emergency_Line</span> 085760363946</li>
+                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[8px] mb-1">Residential_Area</span> Nagrikaler, Purwakarta</li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="md:col-span-8 p-10 space-y-12">
+                <section>
+                    <div class="flex items-center gap-4 mb-8">
+                        <h2 class="header-font text-xl font-bold text-white uppercase italic tracking-tighter">Mission_History</h2>
+                        <div class="h-[1px] flex-1 bg-slate-800"></div>
+                    </div>
+                    
+                    <div class="space-y-10">
+                        <div class="relative pl-8 border-l-2 border-cyan-500/40">
+                            <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-950 border-2 border-cyan-500 rounded-full"></div>
+                            <h4 class="text-white font-black text-sm uppercase">Operator Layanan Operasional (ASN)</h4>
+                            <p class="text-cyan-500 text-[10px] font-bold tracking-widest mb-4">SMKN 3 Linggabuana Purwakarta</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Membangun dan mengelola sistem **Arsip Kurikulum Digital** menggunakan Google Apps Script, HTML, dan CSS. Bertanggung jawab atas pemeliharaan infrastruktur IT dan kearsipan operasional sekolah.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-4 mb-8">
+                        <h2 class="header-font text-xl font-bold text-white uppercase italic tracking-tighter">Academic_Vault</h2>
+                        <div class="h-[1px] flex-1 bg-slate-800"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-5 bg-slate-900/40 rounded-xl border border-slate-800">
+                            <h4 class="text-white text-xs font-bold uppercase">SMA Negeri 1 Panai Hulu</h4>
+                            <p class="text-[9px] text-slate-500 mt-1">CERTIFICATE: DN-07 Ma 0129213</p>
+                            <p class="text-[10px] text-cyan-500 mt-2 font-bold uppercase">Graduated // 2014</p>
+                        </div>
+                        <div class="p-5 bg-slate-900/40 rounded-xl border border-slate-800">
+                            <h4 class="text-white text-xs font-bold uppercase">SMP Negeri 1 Panai Hulu</h4>
+                            <p class="text-[9px] text-slate-500 mt-1">CERTIFICATE: DN-07 DI 0041032</p>
+                            <p class="text-[10px] text-cyan-500 mt-2 font-bold uppercase">Graduated // 2011</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-4 mb-8">
+                        <h2 class="header-font text-xl font-bold text-white uppercase italic tracking-tighter">Personnel_Traits</h2>
+                        <div class="h-[1px] flex-1 bg-slate-800"></div>
+                    </div>
+                    <div class="p-6 bg-slate-900/20 rounded-2xl border border-slate-800/50">
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div>
+                                <p class="text-[8px] text-slate-500 uppercase">Height</p>
+                                <p class="text-xs text-white">164 CM</p>
+                            </div>
+                            <div>
+                                <p class="text-[8px] text-slate-500 uppercase">Weight</p>
+                                <p class="text-xs text-white">58 KG</p>
+                            </div>
+                            <div>
+                                <p class="text-[8px] text-slate-500 uppercase">Skin_Tone</p>
+                                <p class="text-xs text-white">Sawo Matang</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer class="p-8 bg-slate-950/80 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-[9px] text-slate-600 uppercase tracking-widest text-center md:text-left leading-relaxed">
+                "Never stop learning, creating, and evolving."<br>
+                Official Personnel Manifest // Security Level 4 Enabled
+            </div>
+            <div class="header-font text-xs text-cyan-500 font-bold uppercase tracking-widest">
+                SASMITHA DCS // 2026
+            </div>
+        </footer>
+    </div>
+
+    <p class="text-center text-slate-800 text-[9px] mt-10 uppercase tracking-[1em] no-print">
+        AUTHENTIC_DOSSIER_BY_RIDHO_KISWANTO
+    </p>
+
+</body>
+</html>
