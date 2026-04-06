@@ -521,7 +521,11 @@ input::placeholder, textarea::placeholder {
 
 /* --- 2. ESCORT SHIPS (Spotify & YouTube) --- */
 
-#fleet-hangar { z-index: 20; margin-right: 15px; }
+#fleet-hangar { 
+    z-index: 20; 
+    margin-left: 15px; /* Pindah margin dari kanan ke kiri */
+    margin-right: 0;
+}
 
 /* A. SPOTIFY "MANTIS" FIGHTER (Desain Aerodinamis Hijau) */
 .ship-body-spot {
@@ -589,6 +593,6 @@ input::placeholder, textarea::placeholder {
 }
 
 @keyframes slideInPanel {
-    from { opacity: 0; transform: translateY(-50%) translateX(20px); }
+    from { opacity: 0; transform: translateY(-50%) translateX(-20px); } /* Dari kiri */
     to { opacity: 1; transform: translateY(-50%) translateX(0); }
 }
