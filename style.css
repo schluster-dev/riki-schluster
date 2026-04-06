@@ -419,11 +419,10 @@ input::placeholder, textarea::placeholder {
 }
 
 .section-header-line {
-    height: 2px;
+    height: 1.5px;
     flex: 1;
     background: linear-gradient(90deg, transparent, var(--neon-cyan, #00f2ff), transparent);
     opacity: 0.6;
-    filter: drop-shadow(0 0 5px var(--neon-cyan));
 }
 
 .section-header-text {
