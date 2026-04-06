@@ -461,131 +461,108 @@ input::placeholder, textarea::placeholder {
     }
 }
 
-/* --- SCHLUSTER STARSHIP PLAYER (v3.2 - FIXED) --- */
+/* ============================================================
+   SCHLUSTER STARSHIP FLEET (v4.0 - Custom Ships)
+   ============================================================ */
 
-/* 1. Container Utama & Animasi Idle */
+/* --- 1. MOTHERSHIP (LISTEN_SYSTEM Roket) --- */
 .starship-container {
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 20;
-    /* Getaran terbang saat diam */
+    width: 75px; height: 75px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 30;
+    /* Animasi Wobble Idle */
     animation: flight-wobble 4s ease-in-out infinite;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 2. Logic Hover - Mencegah Kedipan (Flicker) */
+/* Logic Hover Mothership (Mencegah Flicker) */
 .group:hover .starship-container {
-    /* Matikan wobble idle agar tidak bentrok dengan animasi takeoff */
     animation: flight-takeoff 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-/* 3. Body Pesawat */
 .starship-body {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 50% 50% 15% 15%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     z-index: 10;
     background: var(--glass-bg);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(0, 242, 255, 0.3);
 }
 
-.central-icon {
-    filter: drop-shadow(0 0 5px var(--neon-cyan));
-}
+.central-icon { filter: drop-shadow(0 0 5px currentColor); }
 
-/* 4. Sayap Pesawat */
 .starship-wing {
-    position: absolute;
-    top: 50%;
-    width: 25px;
-    height: 15px;
-    z-index: 5;
-    transition: all 0.4s ease;
-    background: rgba(0, 20, 30, 0.9);
+    position: absolute; top: 50%; width: 25px; height: 15px; z-index: 5;
+    transition: all 0.4s ease; background: rgba(0, 20, 30, 0.9);
 }
-
 .wing-left {
-    left: -12px;
-    transform: translateY(-50%) skewY(-20deg);
-    border-radius: 5px 0 0 5px;
-    border-left: 1px solid var(--neon-cyan);
+    left: -12px; transform: translateY(-50%) skewY(-20deg);
+    border-radius: 5px 0 0 5px; border-left: 1px solid var(--neon-cyan);
 }
-
 .wing-right {
-    right: -12px;
-    transform: translateY(-50%) skewY(20deg);
-    border-radius: 0 5px 5px 0;
-    border-right: 1px solid var(--neon-cyan);
+    right: -12px; transform: translateY(-50%) skewY(20deg);
+    border-radius: 0 5px 5px 0; border-right: 1px solid var(--neon-cyan);
 }
+.group:hover .wing-left { left: -25px; transform: translateY(-50%) skewY(-10deg); opacity: 1; }
+.group:hover .wing-right { right: -25px; transform: translateY(-50%) skewY(10deg); opacity: 1; }
 
-/* Sayap membuka saat hover */
-.group:hover .wing-left { left: -22px; transform: translateY(-50%) skewY(-10deg); opacity: 1; }
-.group:hover .wing-right { right: -22px; transform: translateY(-50%) skewY(10deg); opacity: 1; }
-
-/* 5. Jet Thruster (Api Roket) */
 .thruster-container {
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 15px;
-    height: 25px;
-    z-index: 1;
+    position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    width: 18px; height: 30px; z-index: 1;
 }
-
 .fire-core {
-    width: 6px;
-    height: 100%;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 0 0 50% 50%;
+    width: 7px; height: 100%; margin: 0 auto;
+    background: #fff; border-radius: 0 0 50% 50%;
     box-shadow: 0 0 10px var(--neon-cyan);
 }
 
-/* Kedipan Api Jet (Selalu aktif / Loop) */
-.animate-thruster-glow {
-    animation: thruster-glow 0.08s infinite alternate;
+/* --- 2. ESCORT SHIPS (Spotify & YouTube) --- */
+
+/* Transisi Armada saat muncul */
+#music-menu { z-index: 20; margin-right: 15px; }
+
+/* A. SPOTIFY "BANSHEE" (Bentuk Oval Melengkung) */
+.ship-spot-banshee .w-12 {
+    border-radius: 50% 15% 50% 15%; /* Bentuk Organik Unik */
+    transition: all 0.3s ease;
+}
+.ship-spot-banshee:hover .w-12 {
+    background: #1DB954;
+    border-color: #fff;
+    transform: scale(1.1);
 }
 
-/* 6. Player Menu Support */
-#music-menu {
-    z-index: 15;
-    margin-right: 15px;
+/* B. YOUTUBE "RAZOR" (Bentuk Segitiga Tajam/Arrow) */
+.ship-body-yt {
+    background: rgba(40, 0, 0, 0.8);
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    /* Trik CSS Shape: Segitiga tajam ke bawah */
+    clip-path: polygon(50% 0%, 100% 80%, 80% 100%, 20% 100%, 0% 80%);
+    transition: all 0.3s ease;
+}
+.ship-yt-razor:hover .ship-body-yt {
+    background: #FF0000;
+    border-color: #fff;
+    transform: scale(1.1);
 }
 
-/* Support klik mobile */
-.active-music-menu #music-menu {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    pointer-events: auto !important;
-}
+/* --- 3. ANIMATIONS --- */
 
-/* --- KEYFRAMES --- */
-
-/* Getaran Idle */
 @keyframes flight-wobble {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     25% { transform: translateY(-3px) rotate(1.5deg); }
     75% { transform: translateY(3px) rotate(-1.5deg); }
 }
 
-/* Efek Takeoff saat Hover */
 @keyframes flight-takeoff {
     0% { transform: translateY(0); }
-    100% { transform: translateY(-15px); } /* Berhenti di posisi atas */
+    100% { transform: translateY(-20px); }
 }
 
-/* Animasi Api Jet */
 @keyframes thruster-glow {
-    0% { transform: scaleY(0.8); opacity: 0.7; filter: blur(3px); }
-    100% { transform: scaleY(1.3); opacity: 1; filter: blur(6px); }
+    0% { transform: scaleY(0.8) translateX(-50%); opacity: 0.7; filter: blur(3px); }
+    100% { transform: scaleY(1.3) translateX(-50%); opacity: 1; filter: blur(6px); }
 }
+.animate-thruster-glow { animation: thruster-glow 0.08s infinite alternate; }
