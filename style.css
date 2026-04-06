@@ -486,3 +486,17 @@ input::placeholder, textarea::placeholder {
     align-items: center;
     justify-content: center;
 }
+/* Pastikan player muncul di kiri icon */
+#music-menu .flex {
+    justify-content: flex-end;
+}
+
+/* Animasi munculnya player */
+.group\/spot:hover div, .group\/yt:hover div {
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
