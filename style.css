@@ -408,3 +408,55 @@ input::placeholder, textarea::placeholder {
     filter: brightness(1.2);
     box-shadow: 0 0 15px currentColor;
 }
+
+/* --- GLOBAL OS HEADER --- */
+.section-header-os {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 8rem; /* Jarak mb-32 */
+    width: 100%;
+}
+
+.section-header-line {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan, #00f2ff), transparent);
+    opacity: 0.3;
+}
+
+.section-header-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem; /* Ukuran mantap untuk Desktop */
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #ffffff 30%, #444444 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    white-space: nowrap;
+}
+
+/* Efek Glitch/Glow statis di belakang */
+.section-header-text::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    text-shadow: 0 0 20px var(--neon-cyan);
+    opacity: 0.2;
+}
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+    .section-header-text {
+        font-size: 1.2rem;
+    }
+    .section-header-os {
+        margin-bottom: 4rem; /* Di HP jangan terlalu jauh jaraknya */
+    }
+}
