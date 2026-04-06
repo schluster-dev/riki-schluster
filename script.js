@@ -52,7 +52,6 @@ resize();
 
 const textElement = document.getElementById('typewriter-action');
 
-// --- UPDATE BIO TEXT DENGAN POINT-POINT BARU KAMU ---
 const bioText = "Saya bekerja sebagai Staff Kurikulum dan Arsiparis Digital di <span class='text-cyan-400'>smkn3linggabuana.sch.id</span>. <br><br> Pengelola website resmi sekolah, AI Music Producer (Suno/Udio) di kanal <span class='text-purple-400'>Schluster</span>, dan kreator visual menggunakan Stable Diffusion dengan teknik Strong Prompting. <br><br> Saat ini aktif mempelajari Python, mengembangkan game survival menggunakan <span class='text-cyan-500'>Godot Engine</span> dengan bantuan AI, serta mengoptimalkan sistem automasi kearsipan. <br><br> Perjalanan hidup saya dibentuk oleh tantangan, namun saya percaya bahwa debu terkecil sekalipun, melalui kegigihan, dapat bertransformasi menjadi batu. Never stop learning, creating, and evolving.";
 
 let charIndex = 0;
@@ -61,18 +60,16 @@ if(textElement) textElement.innerHTML = "";
 
 function typeWriter() {
     if (textElement && charIndex < bioText.length) {
-        // Cek tag <br>
         if (bioText.substring(charIndex, charIndex + 4) === "<br>") {
             textElement.innerHTML += "<br>";
             charIndex += 4;
             setTimeout(typeWriter, 30);
         } 
-        // Cek tag <span> untuk warna (agar tag tidak ikut diketik satu-satu)
         else if (bioText.charAt(charIndex) === "<") {
             let tagEnd = bioText.indexOf(">", charIndex);
             textElement.innerHTML += bioText.substring(charIndex, tagEnd + 1);
             charIndex = tagEnd + 1;
-            typeWriter(); // Lanjut langsung tanpa delay untuk tag
+            typeWriter(); 
         }
         else {
             textElement.innerHTML += bioText.charAt(charIndex);
@@ -95,3 +92,70 @@ function animate() {
 
 animate();
 typeWriter();
+
+// ============================================================
+// --- TAMBAHAN: SCHLUSTER TACTICAL FLEET LOGIC (v5.0) ---
+// ============================================================
+
+function initTacticalFleet() {
+    const starshipToggle = document.getElementById('music-toggle');
+    const shipSpotify = document.getElementById('ship-spotify');
+    const shipYoutube = document.getElementById('ship-youtube');
+    
+    // SFX Elements
+    const sfxBlip = document.getElementById('sfx-blip');
+    const sfxLaunch = document.getElementById('sfx-launch');
+    const sfxPower = document.getElementById('sfx-power');
+
+    if (starshipToggle && shipSpotify && shipYoutube) {
+        
+        const playSfx = (audio, vol = 0.2) => {
+            if (audio) {
+                audio.currentTime = 0;
+                audio.volume = vol;
+                audio.play().catch(() => {}); 
+            }
+        };
+
+        // 1. Mothership Sound & Toggle
+        starshipToggle.addEventListener('mouseenter', () => playSfx(sfxBlip, 0.1));
+        starshipToggle.addEventListener('click', () => {
+            playSfx(sfxLaunch, 0.2);
+            starshipToggle.parentElement.classList.toggle('active-music-menu');
+        });
+
+        // 2. Logic Klik Pesawat Pengawal
+        const togglePlayer = (shipElement, audio) => {
+            const panel = shipElement.querySelector('.player-panel');
+            const isOpen = !panel.classList.contains('hidden');
+
+            // Tutup panel lain
+            document.querySelectorAll('.player-panel').forEach(p => p.classList.add('hidden'));
+
+            if (isOpen) {
+                panel.classList.add('hidden');
+            } else {
+                panel.classList.remove('hidden');
+                playSfx(audio, 0.2);
+            }
+        };
+
+        shipSpotify.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlayer(shipSpotify, sfxPower);
+        });
+
+        shipYoutube.addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlayer(shipYoutube, sfxPower);
+        });
+
+        // Klik di mana saja untuk menutup panel yang terbuka
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.player-panel').forEach(p => p.classList.add('hidden'));
+        });
+    }
+}
+
+// Jalankan sistem armada
+initTacticalFleet();
