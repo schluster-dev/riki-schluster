@@ -75,15 +75,13 @@ function typeWriter() {
     }
 }
 
-// --- 3. FLOATING MUSIC HUB LOGIC ---
-// Fungsi Global untuk YouTube API agar bisa dipanggil browser
+// --- 3. STARSHIP MUSIC HUB LOGIC ---
 var player;
-function onYouTubeIframeAPIReady() {
+// YouTube API membutuhkan fungsi ini di level global (window)
+window.onYouTubeIframeAPIReady = function() {
     const iframe = document.querySelector('.group\\/yt iframe');
     if (iframe) {
-        // Tambahkan ID secara dinamis jika belum ada
         iframe.id = "youtube-player-id";
-        // Tambahkan parameter API ke link video agar bisa dikontrol JS
         let currentSrc = iframe.getAttribute('src');
         if(!currentSrc.includes('enablejsapi=1')) {
             iframe.setAttribute('src', currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'enablejsapi=1');
@@ -95,14 +93,14 @@ function onYouTubeIframeAPIReady() {
             }
         });
     }
-}
+};
 
 function onPlayerReady(event) {
-    const ytContainer = document.querySelector('.group\\/yt');
+    const ytIcon = document.querySelector('.group\\/yt div[class*="bg-red-600"]');
     const sfxBlip = document.getElementById('sfx-blip');
     
-    if (ytContainer) {
-        ytContainer.addEventListener('click', function() {
+    if (ytIcon) {
+        ytIcon.addEventListener('click', function() {
             if (sfxBlip) { sfxBlip.currentTime = 0; sfxBlip.play(); }
             
             var state = player.getPlayerState();
@@ -116,27 +114,40 @@ function onPlayerReady(event) {
 }
 
 function initMusicHub() {
-    const musicToggle = document.getElementById('music-toggle');
+    const starshipToggle = document.getElementById('music-toggle');
     const sfxBlip = document.getElementById('sfx-blip');
+    const sfxLaunch = document.getElementById('sfx-launch');
 
-    if (musicToggle && sfxBlip) {
+    if (starshipToggle) {
         const playBlip = () => {
-            sfxBlip.currentTime = 0;
-            sfxBlip.volume = 0.15;
-            sfxBlip.play().catch(() => {});
+            if (sfxBlip) {
+                sfxBlip.currentTime = 0;
+                sfxBlip.volume = 0.15;
+                sfxBlip.play().catch(() => {});
+            }
         };
-        musicToggle.addEventListener('mouseenter', playBlip);
-        musicToggle.addEventListener('click', () => {
+
+        starshipToggle.addEventListener('mouseenter', playBlip);
+        
+        starshipToggle.addEventListener('click', () => {
             playBlip();
-            musicToggle.parentElement.classList.toggle('active-music-menu');
+            if (sfxLaunch) {
+                sfxLaunch.currentTime = 0;
+                sfxLaunch.volume = 0.2;
+                sfxLaunch.play().catch(() => {});
+            }
+            // Toggle class untuk menampilkan menu di mobile atau efek tambahan
+            starshipToggle.parentElement.classList.toggle('active-menu');
         });
     }
 
-    // Load YouTube API Script secara otomatis
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // Load YouTube API Script
+    if (!window.YT) {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
 }
 
 // --- 4. INITIALIZE ALL SYSTEMS ---
