@@ -1,6 +1,6 @@
+// --- 1. SPACE CANVAS LOGIC (Bintang Bergerak) ---
 const canvas = document.getElementById('space-canvas');
 const ctx = canvas.getContext('2d');
-
 let stars = [];
 const starCount = 150;
 
@@ -9,14 +9,10 @@ function resize() {
     canvas.height = window.innerHeight;
     initStars(); 
 }
-
 window.addEventListener('resize', resize);
 
 class Star {
-    constructor() {
-        this.reset();
-    }
-
+    constructor() { this.reset(); }
     reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * (canvas.height + 100); 
@@ -24,12 +20,10 @@ class Star {
         this.speed = Math.random() * 0.5 + 0.2;
         this.color = Math.random() > 0.5 ? '#00f2ff' : '#bc13fe';
     }
-
     update() {
         this.y -= this.speed;
         if (this.y < 0) this.reset();
     }
-
     draw() {
         ctx.fillStyle = this.color;
         ctx.shadowBlur = 4;
@@ -43,45 +37,7 @@ class Star {
 
 function initStars() {
     stars = [];
-    for (let i = 0; i < starCount; i++) {
-        stars.push(new Star());
-    }
-}
-
-resize();
-
-const textElement = document.getElementById('typewriter-action');
-
-// --- UPDATE BIO TEXT DENGAN POINT-POINT BARU KAMU ---
-const bioText = "Saya bekerja sebagai Staff Kurikulum dan Arsiparis Digital di <span class='text-cyan-400'>smkn3linggabuana.sch.id</span>. <br><br> Pengelola website resmi sekolah, AI Music Producer (Suno/Udio) di kanal <span class='text-purple-400'>Schluster</span>, dan kreator visual menggunakan Stable Diffusion dengan teknik Strong Prompting. <br><br> Saat ini aktif mempelajari Python, mengembangkan game survival menggunakan <span class='text-cyan-500'>Godot Engine</span> dengan bantuan AI, serta mengoptimalkan sistem automasi kearsipan. <br><br> Perjalanan hidup saya dibentuk oleh tantangan, namun saya percaya bahwa debu terkecil sekalipun, melalui kegigihan, dapat bertransformasi menjadi batu. Never stop learning, creating, and evolving.";
-
-let charIndex = 0;
-
-if(textElement) textElement.innerHTML = "";
-
-function typeWriter() {
-    if (textElement && charIndex < bioText.length) {
-        // Cek tag <br>
-        if (bioText.substring(charIndex, charIndex + 4) === "<br>") {
-            textElement.innerHTML += "<br>";
-            charIndex += 4;
-            setTimeout(typeWriter, 30);
-        } 
-        // Cek tag <span> untuk warna (agar tag tidak ikut diketik satu-satu)
-        else if (bioText.charAt(charIndex) === "<") {
-            let tagEnd = bioText.indexOf(">", charIndex);
-            textElement.innerHTML += bioText.substring(charIndex, tagEnd + 1);
-            charIndex = tagEnd + 1;
-            typeWriter(); // Lanjut langsung tanpa delay untuk tag
-        }
-        else {
-            textElement.innerHTML += bioText.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeWriter, 30);
-        }
-    } else if (textElement) {
-        textElement.innerHTML += '<span class="text-cyan-400 animate-pulse">_</span>';
-    }
+    for (let i = 0; i < starCount; i++) { stars.push(new Star()); }
 }
 
 function animate() {
@@ -93,5 +49,58 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-animate();
-typeWriter();
+// --- 2. BIO TYPEWRITER LOGIC ---
+const textElement = document.getElementById('typewriter-action');
+const bioText = "Saya bekerja sebagai Staff Kurikulum dan Arsiparis Digital di <span class='text-cyan-400'>smkn3linggabuana.sch.id</span>. <br><br> Pengelola website resmi sekolah, AI Music Producer (Suno/Udio) di kanal <span class='text-purple-400'>Schluster</span>, dan kreator visual menggunakan Stable Diffusion dengan teknik Strong Prompting. <br><br> Saat ini aktif mempelajari Python, mengembangkan game survival menggunakan <span class='text-cyan-500'>Godot Engine</span> dengan bantuan AI, serta mengoptimalkan sistem automasi kearsipan. <br><br> Perjalanan hidup saya dibentuk oleh tantangan, namun saya percaya bahwa debu terkecil sekalipun, melalui kegigihan, dapat bertransformasi menjadi batu. Never stop learning, creating, and evolving.";
+let charIndex = 0;
+
+function typeWriter() {
+    if (textElement && charIndex < bioText.length) {
+        if (bioText.substring(charIndex, charIndex + 4) === "<br>") {
+            textElement.innerHTML += "<br>";
+            charIndex += 4;
+            setTimeout(typeWriter, 30);
+        } else if (bioText.charAt(charIndex) === "<") {
+            let tagEnd = bioText.indexOf(">", charIndex);
+            textElement.innerHTML += bioText.substring(charIndex, tagEnd + 1);
+            charIndex = tagEnd + 1;
+            typeWriter();
+        } else {
+            textElement.innerHTML += bioText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 30);
+        }
+    } else if (textElement) {
+        textElement.innerHTML += '<span class="text-cyan-400 animate-pulse">_</span>';
+    }
+}
+
+// --- 3. FLOATING MUSIC HUB LOGIC ---
+function initMusicHub() {
+    const musicToggle = document.getElementById('music-toggle');
+    const sfxBlip = document.getElementById('sfx-blip');
+
+    if (musicToggle && sfxBlip) {
+        const playBlip = () => {
+            sfxBlip.currentTime = 0;
+            sfxBlip.volume = 0.15;
+            sfxBlip.play().catch(() => {});
+        };
+        musicToggle.addEventListener('mouseenter', playBlip);
+        musicToggle.addEventListener('click', () => {
+            playBlip();
+            musicToggle.parentElement.classList.toggle('active-music-menu');
+        });
+    }
+}
+
+// --- 4. INITIALIZE ALL SYSTEMS ---
+document.addEventListener('DOMContentLoaded', () => {
+    resize();
+    animate();
+    if(textElement) {
+        textElement.innerHTML = "";
+        typeWriter();
+    }
+    initMusicHub();
+});
