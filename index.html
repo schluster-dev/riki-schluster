@@ -509,46 +509,53 @@
             &copy; 2026 Ridho Kiswanto | All Systems Operational | Deployed via GitHub_Pages
         </p>
 
-    <div class="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3 group">
+    <div class="fixed bottom-10 right-10 z-[100] group flex items-center gap-4">
     
-    <div id="music-menu" class="flex flex-col gap-4 opacity-0 translate-y-10 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-500">
+    <div class="flex flex-col gap-4 opacity-0 translate-x-10 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto transition-all duration-500 delay-100 items-end">
         
         <div class="flex items-center gap-3 group/spot">
-            <div class="hidden group-hover/spot:block w-64 h-[80px] bg-black/80 rounded-xl overflow-hidden border border-[#1DB954]/30 shadow-lg">
-                <iframe src="https://open.spotify.com/embed/track/3n3Pp3STvR9v9t91o91p91?utm_source=generator" 
-                        width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div class="hidden group-hover/spot:block w-64 h-20 bg-black/90 rounded-lg overflow-hidden border border-[#1DB954]/50 shadow-[0_0_15px_rgba(29,185,84,0.2)]">
+                <iframe src="https://open.spotify.com/embed/artist/37i9dQZF1DXcBWIGoYBM3M?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
-            <div class="bg-[#1DB954]/20 hover:bg-[#1DB954] border border-[#1DB954]/50 p-4 rounded-full text-white transition-all cursor-pointer shadow-lg shadow-green-900/20">
+            <div class="bg-[#1DB954]/10 hover:bg-[#1DB954] border border-[#1DB954]/50 p-4 rounded-full text-white transition-all cursor-pointer shadow-lg hover:shadow-[#1DB954]/50">
                 <i class="fa-brands fa-spotify text-xl"></i>
             </div>
         </div>
 
         <div class="flex items-center gap-3 group/yt">
-            <div class="hidden group-hover/yt:block w-64 h-[80px] bg-black/80 rounded-xl overflow-hidden border border-[#FF0000]/30 shadow-lg">
-                <iframe width="100%" height="150" 
-                        src="https://www.youtube.com/embed/NJjF_O3nH4Y?list=PLTI-UY52ARN9kIq_ZZGQTDZ0MtQgiQXb6&controls=1&showinfo=0&modestbranding=1" 
-                        title="YouTube player" frameborder="0" 
-                        allow="autoplay; encrypted-media;" 
-                        style="margin-top: -35px;"> </iframe>
+            <div class="hidden group-hover/yt:block w-64 h-20 bg-black/90 rounded-lg overflow-hidden border border-[#FF0000]/50 shadow-[0_0_15px_rgba(255,0,0,0.2)]">
+                <iframe width="100%" height="80" src="https://www.youtube.com/embed/NJjF_O3nH4Y?list=PLTI-UY52ARN9kIq_ZZGQTDZ0MtQgiQXb6" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media;" loading="lazy"></iframe>
             </div>
-            <div class="bg-[#FF0000]/20 hover:bg-[#FF0000] border border-[#FF0000]/50 p-4 rounded-full text-white transition-all cursor-pointer shadow-lg shadow-red-900/20">
+            <div class="bg-[#FF0000]/10 hover:bg-[#FF0000] border border-[#FF0000]/50 p-4 rounded-full text-white transition-all cursor-pointer shadow-lg hover:shadow-[#FF0000]/50">
                 <i class="fa-brands fa-youtube text-xl"></i>
             </div>
         </div>
-
     </div>
 
-    <div id="music-toggle" class="glass p-4 rounded-full cursor-pointer shadow-[0_0_20px_rgba(0,242,255,0.2)] hover:scale-110 transition-transform flex items-center gap-3 border-cyan-500/50">
-        <div class="relative w-3 h-3">
-            <span class="absolute inset-0 bg-cyan-500 rounded-full animate-ping opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
+    <div id="music-toggle" class="starship-container relative cursor-pointer group-hover:scale-110 transition-transform duration-300">
+        
+        <div class="absolute inset-0 bg-cyan-500/20 blur-xl rounded-full opacity-50 group-hover:opacity-100 animate-pulse"></div>
+
+        <div class="starship-body glass relative border-cyan-500/50 shadow-[0_0_15px_rgba(0,242,255,0.3)] hover:border-cyan-400">
+            <i class="fa-solid fa-satellite-dish text-cyan-400 text-2xl central-icon animate-pulse"></i>
+            
+            <div class="starship-wing wing-left bg-cyan-950 border-l border-cyan-500/50"></div>
+            <div class="starship-wing wing-right bg-cyan-950 border-r border-cyan-500/50"></div>
         </div>
-        <span class="text-[9px] rpg-font text-cyan-400 tracking-[0.2em] hidden md:block uppercase">SYSTEM_AUDIO</span>
-        <i class="fa-solid fa-compact-disc animate-spin-slow text-cyan-400 text-xl"></i>
+
+        <div class="thruster-container">
+            <div class="fire-core bg-cyan-300"></div>
+            <div class="fire-glow bg-cyan-500 animate-thruster-glow"></div>
+        </div>
+        
+        <span class="absolute -top-8 left-1/2 -translate-x-1/2 text-[8px] rpg-font text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-widest whitespace-nowrap">
+            Launch_Audio
+        </span>
     </div>
 </div>
 
 <audio id="sfx-blip" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+<audio id="sfx-launch" src="https://assets.mixkit.co/active_storage/sfx/2550/2550-preview.mp3" preload="auto"></audio>
         
     </footer>
 
