@@ -511,15 +511,26 @@
 
     <div class="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3 group">
     
-    <div id="music-menu" class="flex flex-col gap-3 opacity-0 translate-y-10 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-500">
-        <a href="https://open.spotify.com/artist/YOUR_ID" target="_blank" 
-           class="bg-[#1DB954]/10 hover:bg-[#1DB954] border border-[#1DB954]/50 p-3 rounded-full text-white transition-all shadow-[0_0_15px_rgba(29,185,84,0.3)] flex items-center justify-center">
-            <i class="fa-brands fa-spotify text-xl"></i>
-        </a>
-        <a href="https://youtube.com/@schluster" target="_blank" 
-           class="bg-[#FF0000]/10 hover:bg-[#FF0000] border border-[#FF0000]/50 p-3 rounded-full text-white transition-all shadow-[0_0_15px_rgba(255,0,0,0.3)] flex items-center justify-center">
-            <i class="fa-brands fa-youtube text-xl"></i>
-        </a>
+    <div id="music-menu" class="flex flex-col gap-4 opacity-0 translate-y-10 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-500">
+        
+        <div class="flex items-center gap-3 group/spot">
+            <div class="hidden group-hover/spot:block w-64 h-20 bg-black/80 rounded-xl overflow-hidden border border-[#1DB954]/30 shadow-lg transition-all">
+                <iframe src="https://open.spotify.com/embed/artist/37i9dQZF1DXcBWIGoYBM3M?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            <div class="bg-[#1DB954]/20 hover:bg-[#1DB954] border border-[#1DB954]/50 p-4 rounded-full text-white transition-all cursor-pointer">
+                <i class="fa-brands fa-spotify text-xl"></i>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 group/yt">
+            <div class="hidden group-hover/yt:block w-64 h-20 bg-black/80 rounded-xl overflow-hidden border border-[#FF0000]/30 shadow-lg transition-all">
+                <iframe width="100%" height="80" src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID" title="YouTube video player" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="bg-[#FF0000]/20 hover:bg-[#FF0000] border border-[#FF0000]/50 p-4 rounded-full text-white transition-all cursor-pointer">
+                <i class="fa-brands fa-youtube text-xl"></i>
+            </div>
+        </div>
+
     </div>
 
     <div id="music-toggle" class="glass p-4 rounded-full cursor-pointer shadow-[0_0_20px_rgba(0,242,255,0.2)] hover:scale-110 transition-transform flex items-center gap-3 border-cyan-500/50">
@@ -527,7 +538,7 @@
             <span class="absolute inset-0 bg-cyan-500 rounded-full animate-ping opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-400"></span>
         </div>
-        <span class="text-[9px] rpg-font text-cyan-400 tracking-[0.2em] hidden md:block uppercase">Listen_Schluster</span>
+        <span class="text-[9px] rpg-font text-cyan-400 tracking-[0.2em] hidden md:block uppercase">LISTEN_SYSTEM</span>
         <i class="fa-solid fa-compact-disc animate-spin-slow text-cyan-400 text-xl"></i>
     </div>
 </div>
