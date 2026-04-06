@@ -76,6 +76,45 @@ function typeWriter() {
 }
 
 // --- 3. FLOATING MUSIC HUB LOGIC ---
+// Fungsi Global untuk YouTube API agar bisa dipanggil browser
+var player;
+function onYouTubeIframeAPIReady() {
+    const iframe = document.querySelector('.group\\/yt iframe');
+    if (iframe) {
+        // Tambahkan ID secara dinamis jika belum ada
+        iframe.id = "youtube-player-id";
+        // Tambahkan parameter API ke link video agar bisa dikontrol JS
+        let currentSrc = iframe.getAttribute('src');
+        if(!currentSrc.includes('enablejsapi=1')) {
+            iframe.setAttribute('src', currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'enablejsapi=1');
+        }
+
+        player = new YT.Player(iframe.id, {
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+}
+
+function onPlayerReady(event) {
+    const ytContainer = document.querySelector('.group\\/yt');
+    const sfxBlip = document.getElementById('sfx-blip');
+    
+    if (ytContainer) {
+        ytContainer.addEventListener('click', function() {
+            if (sfxBlip) { sfxBlip.currentTime = 0; sfxBlip.play(); }
+            
+            var state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+    }
+}
+
 function initMusicHub() {
     const musicToggle = document.getElementById('music-toggle');
     const sfxBlip = document.getElementById('sfx-blip');
@@ -92,6 +131,12 @@ function initMusicHub() {
             musicToggle.parentElement.classList.toggle('active-music-menu');
         });
     }
+
+    // Load YouTube API Script secara otomatis
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }
 
 // --- 4. INITIALIZE ALL SYSTEMS ---
