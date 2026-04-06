@@ -3,124 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sasmitha DCS - Roadmap & Workflow 2026</title>
+    <title>SASMITHA DCS | Official Roadmap 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Rajdhani', sans-serif; background-color: #f8fafc; }
+        body { 
+            font-family: 'Rajdhani', sans-serif; 
+            background-color: #020617; 
+            color: #94a3b8;
+        }
         .header-font { font-family: 'Orbitron', sans-serif; }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
         @media print {
             .no-print { display: none; }
-            body { background-color: white; }
-            .page-break { page-break-before: always; }
+            body { background-color: white; color: black; }
+            .glass-card { border: none; background: white; shadow: none; }
         }
     </style>
 </head>
-<body class="p-8 md:p-16">
+<body class="p-6 md:p-12 leading-relaxed">
 
-    <div class="max-w-4xl mx-auto no-print mb-8 flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
-        <span class="text-sm text-gray-500 italic">Pratinjau Dokumen Sasmitha DCS v1.0</span>
-        <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded font-bold hover:bg-blue-700 transition">Download / Print PDF</button>
+    <div class="max-w-4xl mx-auto no-print mb-8 flex justify-between items-center glass-card p-4 rounded-xl">
+        <div class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></div>
+            <span class="text-xs tracking-widest uppercase font-bold text-cyan-400">System: Manifest_Viewer_v1.0</span>
+        </div>
+        <button onclick="window.print()" class="text-[10px] border border-cyan-500/50 text-cyan-400 px-4 py-1 rounded hover:bg-cyan-500 hover:text-white transition-all tracking-widest">
+            EXPORT_TO_PDF
+        </button>
     </div>
 
-    <div class="max-w-4xl mx-auto bg-white p-12 shadow-xl border-t-8 border-cyan-500">
-        <header class="text-center border-b-2 border-gray-100 pb-8">
-            <h1 class="header-font text-4xl font-black text-gray-800 tracking-tighter">SASMITHA DCS</h1>
-            <p class="text-cyan-600 font-bold tracking-widest mt-2 uppercase text-sm">Digital Creative Solution - Holding Ecosystem</p>
-            <div class="mt-4 text-gray-500 text-xs">
-                Purwakarta, West Java, Indonesia | 2026 Strategy Manifest
+    <div class="max-w-4xl mx-auto glass-card p-8 md:p-16 rounded-3xl shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[120px] -z-10"></div>
+
+        <header class="text-center border-b border-slate-800 pb-10">
+            <h1 class="header-font text-3xl md:text-5xl font-black text-white tracking-tighter mb-2">SASMITHA DCS</h1>
+            <p class="text-cyan-400 font-bold tracking-[0.3em] uppercase text-[10px]">Digital Creative Solution - Ecosystem Roadmap</p>
+            <div class="mt-6 flex justify-center gap-4 text-[10px] text-slate-500 tracking-widest uppercase">
+                <span>Loc: Purwakarta // ID</span>
+                <span>Ref: STRAT-2026-X1</span>
             </div>
         </header>
 
-        <section class="mt-12">
-            <h2 class="header-font text-xl font-bold text-gray-800 border-l-4 border-cyan-500 pl-4 mb-4 uppercase">I. Ringkasan Ekosistem (Holding)</h2>
-            <p class="text-gray-600 leading-relaxed mb-4">
-                Sasmitha DCS adalah entitas solusi digital terpadu yang mengintegrasikan tiga pilar utama: <strong>Teknologi, Hiburan, dan Media Interaktif</strong>. Mengadopsi sistem ekosistem dinamis, Sasmitha DCS bertujuan menciptakan nilai tambah melalui efisiensi automasi dan kreativitas berbasis AI.
+        <section class="mt-16">
+            <div class="flex items-center gap-4 mb-6">
+                <h2 class="header-font text-xl font-bold text-white uppercase tracking-tight">01 // Holding Ecosystem</h2>
+                <div class="h-[1px] flex-1 bg-slate-800"></div>
+            </div>
+            <p class="text-sm mb-8 leading-relaxed">
+                Sasmitha DCS mengadopsi model <span class="text-white font-bold italic">Centralized Digital Hub</span>. Kami tidak hanya mengerjakan proyek, kami membangun ekosistem yang menghubungkan efisiensi kode dengan ekspresi seni digital.
             </p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                <div class="p-4 bg-gray-50 rounded-lg border-t-4 border-blue-400">
-                    <h3 class="font-bold text-gray-800 italic">DCS Tech-Logic</h3>
-                    <p class="text-xs text-gray-500 mt-1">Fokus: Automasi, Web Dev, & Kearsipan Digital.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-5 border border-blue-500/10 rounded-2xl bg-blue-500/5">
+                    <h3 class="text-sm font-bold text-blue-400 mb-2 uppercase">Tech-Logic</h3>
+                    <p class="text-[11px]">Automation frameworks, Custom Archiving, & Web Systems.</p>
                 </div>
-                <div class="p-4 bg-gray-50 rounded-lg border-t-4 border-purple-400">
-                    <h3 class="font-bold text-gray-800 italic">Schluster Entertainment</h3>
-                    <p class="text-xs text-gray-500 mt-1">Fokus: AI Music Production & Digital Art.</p>
+                <div class="p-5 border border-purple-500/10 rounded-2xl bg-purple-500/5">
+                    <h3 class="text-sm font-bold text-purple-400 mb-2 uppercase">Entertainment</h3>
+                    <p class="text-[11px]">Schluster Audio-Visual production & AI Generative Art.</p>
                 </div>
-                <div class="p-4 bg-gray-50 rounded-lg border-t-4 border-green-400">
-                    <h3 class="font-bold text-gray-800 italic">DCS Game Labs</h3>
-                    <p class="text-xs text-gray-500 mt-1">Fokus: 2D Top-Down Games & Interactive Media.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="mt-12">
-            <h2 class="header-font text-xl font-bold text-gray-800 border-l-4 border-cyan-500 pl-4 mb-4 uppercase">II. Workflow Pengembangan Web Portal</h2>
-            <div class="space-y-4">
-                <div class="flex gap-4">
-                    <div class="bg-cyan-100 text-cyan-700 font-bold w-12 h-8 flex items-center justify-center rounded">01</div>
-                    <div>
-                        <h4 class="font-bold text-gray-700">Central Portal Gateway (Landing Page)</h4>
-                        <p class="text-sm text-gray-600">Pembuatan satu pintu masuk utama yang membagi trafik ke tiga sub-bisnis. Fitur: Ecosystem Grid & Founder Profile.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="bg-cyan-100 text-cyan-700 font-bold w-12 h-8 flex items-center justify-center rounded">02</div>
-                    <div>
-                        <h4 class="font-bold text-gray-700">Tech Stack Optimization</h4>
-                        <p class="text-sm text-gray-600">Menggunakan Tailwind CSS untuk performa maksimal dan integrasi Google Apps Script/Python untuk fungsionalitas kearsipan klien.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="bg-cyan-100 text-cyan-700 font-bold w-12 h-8 flex items-center justify-center rounded">03</div>
-                    <div>
-                        <h4 class="font-bold text-gray-700">Unified Analytics & Lead Gen</h4>
-                        <p class="text-sm text-gray-600">Penggunaan satu sistem kontak terpusat untuk mempermudah calon klien melakukan inquiry ke cabang manapun.</p>
-                    </div>
+                <div class="p-5 border border-green-500/10 rounded-2xl bg-green-500/5">
+                    <h3 class="text-sm font-bold text-green-400 mb-2 uppercase">Game Labs</h3>
+                    <p class="text-[11px]">Godot Engine focus. Immersive Top-Down 2D experiences.</p>
                 </div>
             </div>
         </section>
 
-        <div class="page-break"></div>
-        <section class="mt-12 pt-8">
-            <h2 class="header-font text-xl font-bold text-gray-800 border-l-4 border-cyan-500 pl-4 mb-8 uppercase">III. Strategic Roadmap (2026)</h2>
-            
-            <div class="relative border-l-2 border-gray-100 ml-4 space-y-12">
-                <div class="relative pl-8">
-                    <div class="absolute -left-2 top-0 bg-cyan-500 w-4 h-4 rounded-full"></div>
-                    <h4 class="font-bold text-cyan-600">FASE 1: Digital Presence & Identity (Bulan 1-2)</h4>
-                    <ul class="text-sm text-gray-600 list-disc ml-4 mt-2">
-                        <li>Rilis Portal Web Sasmitha DCS v1.0.</li>
-                        <li>Sinkronisasi Portofolio Kearsipan SMK & Musik Schluster.</li>
-                        <li>Pendaftaran NIB (Nomor Induk Berusaha) Perseorangan.</li>
-                    </ul>
+        <section class="mt-16">
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="header-font text-xl font-bold text-white uppercase tracking-tight">02 // Strategic Phases</h2>
+                <div class="h-[1px] flex-1 bg-slate-800"></div>
+            </div>
+
+            <div class="space-y-10 border-l border-slate-800 ml-4">
+                <div class="relative pl-10 group">
+                    <div class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-cyan-500 rounded-full group-hover:scale-150 transition-transform shadow-[0_0_10px_#06b6d4]"></div>
+                    <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-widest mb-2">Phase_01: Identity Setup</h4>
+                    <p class="text-xs text-slate-400">Establish Portal Gateway, NIB Registration, & Portfolio Syncing for Tech-Logic and Schluster.</p>
+                </div>
+                
+                <div class="relative pl-10 group">
+                    <div class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-purple-500 rounded-full group-hover:scale-150 transition-transform"></div>
+                    <h4 class="text-xs font-bold text-purple-400 uppercase tracking-widest mb-2">Phase_02: Market Launch</h4>
+                    <p class="text-xs text-slate-400">Releasing Game Demo (DCS Labs) and Scaling AI Music Production. Start B2B Bidding for Schools.</p>
                 </div>
 
-                <div class="relative pl-8">
-                    <div class="absolute -left-2 top-0 bg-purple-500 w-4 h-4 rounded-full"></div>
-                    <h4 class="font-bold text-purple-600">FASE 2: Productization & MVP (Bulan 3-6)</h4>
-                    <ul class="text-sm text-gray-600 list-disc ml-4 mt-2">
-                        <li>Paketisasi Sistem Arsip Digital untuk B2B (DCS Tech-Logic).</li>
-                        <li>Rilis Album Digital EP & Ekspansi YouTube (Schluster).</li>
-                        <li>Rilis Alpha Demo Game di itch.io (DCS Game Labs).</li>
-                    </ul>
-                </div>
-
-                <div class="relative pl-8">
-                    <div class="absolute -left-2 top-0 bg-green-500 w-4 h-4 rounded-full"></div>
-                    <h4 class="font-bold text-green-600">FASE 3: Scale-Up & Legal Upgrade (Bulan 6+)</h4>
-                    <ul class="text-sm text-gray-600 list-disc ml-4 mt-2">
-                        <li>Upgrade NIB ke PT Perorangan.</li>
-                        <li>Integrasi Lintas Cabang (Musik Schluster masuk ke Game DCS).</li>
-                        <li>Buka jasa kustomisasi Python Automation secara masif.</li>
-                    </ul>
+                <div class="relative pl-10 group">
+                    <div class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-green-500 rounded-full group-hover:scale-150 transition-transform"></div>
+                    <h4 class="text-xs font-bold text-green-400 uppercase tracking-widest mb-2">Phase_03: Legal Upgrade</h4>
+                    <p class="text-xs text-slate-400">Upgrade to PT Perorangan. Full integration across all sub-brands into one unified revenue stream.</p>
                 </div>
             </div>
         </section>
 
-        <footer class="mt-20 pt-8 border-t border-gray-100 text-center">
-            <p class="text-xs text-gray-400 italic">"Never stop learning, creating, and evolving."</p>
-            <p class="text-xs text-gray-500 font-bold mt-2">SASMITHA DCS &copy; 2026</p>
+        <footer class="mt-24 pt-10 border-t border-slate-800 text-center">
+            <p class="text-[10px] text-slate-500 uppercase tracking-[0.5em]">Evolution in Progress</p>
+            <p class="text-[9px] text-slate-600 mt-4">&copy; 2026 SASMITHA DCS // All Rights Reserved.</p>
         </footer>
     </div>
 </body>
