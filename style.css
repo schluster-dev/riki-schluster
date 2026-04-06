@@ -414,7 +414,7 @@ input::placeholder, textarea::placeholder {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 4rem; /* Jarak mb-32 */
+    margin-bottom: 2rem; /* Jarak mb-32 */
     width: 100%;
 }
 
@@ -457,6 +457,6 @@ input::placeholder, textarea::placeholder {
         font-size: 1.2rem;
     }
     .section-header-os {
-        margin-bottom: 4rem; /* Di HP jangan terlalu jauh jaraknya */
+        margin-bottom: 2rem; /* Di HP jangan terlalu jauh jaraknya */
     }
 }
