@@ -7,202 +7,228 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
-        body { font-family: 'Rajdhani', sans-serif; background-color: #020617; color: #94a3b8; margin: 0; }
+        body { font-family: 'Rajdhani', sans-serif; background-color: #020617; color: #94a3b8; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 40px 0; }
+        .f4-page { width: 210mm; height: 330mm; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(6, 182, 212, 0.2); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative; overflow: hidden; border-radius: 4px; }
         .header-font { font-family: 'Orbitron', sans-serif; }
-        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(6, 182, 212, 0.2); }
         .skill-bar { height: 4px; background: rgba(6, 182, 212, 0.1); border-radius: 2px; position: relative; overflow: hidden; }
         .skill-progress { position: absolute; top: 0; left: 0; height: 100%; background: #06b6d4; box-shadow: 0 0 10px #06b6d4; }
         
+        @media (max-width: 220mm) {
+            body { padding: 10px 0; }
+            .f4-page { transform: scale(0.85); transform-origin: top center; margin-bottom: -50mm; }
+        }
+
         @media print { 
             .no-print { display: none !important; } 
-            body { background: white !important; color: black !important; } 
-            .glass-card { border: 1px solid #eee !important; background: white !important; box-shadow: none !important; color: black !important; margin: 0 !important; border-radius: 0 !important; }
-            .text-white, .header-font { color: black !important; }
-            .text-cyan-400, .text-cyan-500 { color: #0891b2 !important; }
-            .bg-slate-900\/40, .bg-slate-900\/50 { background: #fdfdfd !important; border: 1px solid #eee !important; }
-            .skill-bar { background: #eee !important; border: 1px solid #ddd !important; }
-            .skill-progress { background: #000 !important; box-shadow: none !important; }
+            body { background: white !important; padding: 0 !important; } 
+            .f4-page { width: 210mm; height: 330mm; margin: 0 !important; border: none !important; box-shadow: none !important; background: white !important; }
         }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body>
 
-    <div class="max-w-5xl mx-auto no-print mb-6 flex justify-between items-center glass-card p-4 rounded-2xl">
+    <div class="w-[210mm] no-print mb-6 flex justify-between items-center bg-slate-900/80 p-4 rounded-xl border border-cyan-500/20">
         <div class="flex items-center gap-3">
             <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span class="text-[10px] tracking-widest uppercase font-bold text-slate-400">Status: Active_Duty // Database: Sasmitha_Cloud</span>
+            <span class="text-[10px] tracking-widest uppercase font-bold text-slate-400">Dossier View: F4_DOCUMENT_MODE</span>
         </div>
-        <button onclick="window.print()" class="bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-bold px-6 py-2 rounded-lg transition-all flex items-center gap-2">
-            <i class="fa-solid fa-print"></i> GENERATE_HARDCOPY
+        <button onclick="downloadPDF()" id="btn-export" class="bg-cyan-600 hover:bg-cyan-500 text-white text-[10px] font-bold px-6 py-2 rounded-lg transition-all flex items-center gap-2">
+            <i class="fa-solid fa-file-pdf"></i> SYNC_TO_LOCAL_STORAGE
         </button>
     </div>
 
-    <div class="max-w-5xl mx-auto glass-card rounded-3xl shadow-2xl overflow-hidden border border-cyan-500/10">
+    <div id="dossier-main" class="f4-page flex flex-col">
         
-        <div class="grid grid-cols-1 md:grid-cols-4 border-b border-slate-800">
-            <div class="p-10 bg-slate-900/50 flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-slate-800">
-                <div class="w-32 h-40 bg-slate-800 rounded-lg border border-cyan-500/20 flex items-center justify-center relative overflow-hidden group">
+        <div class="grid grid-cols-4 border-b border-slate-800">
+            <div class="p-8 bg-slate-900/50 flex flex-col justify-center items-center border-r border-slate-800">
+                <div class="w-28 h-36 bg-slate-800 rounded border border-cyan-500/20 flex items-center justify-center relative overflow-hidden group">
                     <img src="https://0.gravatar.com/avatar/16b31672f95e3c553980791b4e97e450f02e4a288656a1510771c0c87c65ae91?size=256" 
-                         alt="Ridho Kiswanto" 
-                         class="w-full h-full object-cover transition duration-500 grayscale group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-cyan-500/10 to-transparent pointer-events-none"></div>
+                         alt="Ridho Kiswanto" crossorigin="anonymous"
+                         class="w-full h-full object-cover grayscale transition duration-500 group-hover:grayscale-0">
                 </div>
-                <p class="text-[9px] text-cyan-500 uppercase font-bold mt-4 tracking-tighter">ID: RK-121096-S3L</p>
+                <p class="text-[8px] text-cyan-500 uppercase font-bold mt-3 tracking-tighter">ID: RK-121096-S3L</p>
             </div>
-            <div class="md:col-span-3 p-10 flex flex-col justify-center">
-                <h1 class="header-font text-5xl font-black text-white tracking-tighter uppercase leading-none">Ridho Kiswanto</h1>
-                <p class="text-cyan-400 font-bold tracking-[0.4em] uppercase text-[11px] mt-3">Digital Architect & Operator Layanan Operasional</p>
+            <div class="col-span-3 p-8 flex flex-col justify-center">
+                <h1 class="header-font text-4xl font-black text-white tracking-tighter uppercase leading-none">Ridho Kiswanto</h1>
+                <p class="text-cyan-400 font-bold tracking-[0.4em] uppercase text-[10px] mt-2">Digital Architect • Web & App Developer • Game Dev • AI Enthusiast • Archival Specialist</p>
                 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10">
-                    <div class="border-l border-slate-700 pl-4">
-                        <p class="text-[9px] uppercase text-slate-500">Official_Registry</p>
-                        <p class="text-xs text-white">NIK 1210201211960003</p>
+                <div class="grid grid-cols-3 gap-4 mt-6">
+                    <div class="border-l border-slate-700 pl-3">
+                        <p class="text-[8px] uppercase text-slate-500">English_Skill</p>
+                        <p class="text-[10px] text-white font-bold">Intermediate (85%)</p>
                     </div>
-                    <div class="border-l border-slate-700 pl-4">
-                        <p class="text-[9px] uppercase text-slate-500">Birth_Record</p>
-                        <p class="text-xs text-white">Labuhanbatu, 12 Okt 1996</p>
-                    </div>
-                    <div class="border-l border-slate-700 pl-4">
-                        <p class="text-[9px] uppercase text-slate-500">Current_Base</p>
-                        <p class="text-xs text-white">Purwakarta, West Java</p>
+                    <div class="border-l border-slate-700 pl-3">
+    <p class="text-[8px] uppercase text-slate-500">GitHub_Registry</p>
+    <a href="https://github.com/schluster-dev/" target="_blank" class="text-[10px] text-white font-bold italic underline hover:text-cyan-400 transition-colors">
+       github.com/schluster-dev
+    </a>
+</div>
+                    <div class="border-l border-slate-700 pl-3">
+                        <p class="text-[8px] uppercase text-slate-500">Registry</p>
+                        <p class="text-[10px] text-white">NIK 1210201211960003</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12">
-            <div class="md:col-span-4 p-10 bg-slate-900/30 border-r border-slate-800 space-y-12">
+        <div class="grid grid-cols-12 flex-1">
+            <div class="col-span-4 p-8 bg-slate-900/20 border-r border-slate-800 space-y-10">
                 <section>
-                    <h3 class="text-white font-bold uppercase text-[10px] tracking-widest mb-6 flex items-center gap-2">
+                    <h3 class="text-white font-bold uppercase text-[9px] tracking-widest mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-code text-cyan-500"></i> Technical_Specs
                     </h3>
-                    <div class="space-y-5">
-                        <div class="group">
-                            <div class="flex justify-between text-[10px] mb-2">
-                                <span class="text-slate-400 uppercase">Digital Archiving</span>
-                                <span class="text-cyan-400 font-bold">92%</span>
-                            </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-[9px] mb-1"><span>HTML5 / CSS3 / Tailwind</span><span class="text-cyan-400 font-bold">96%</span></div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 96%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[9px] mb-1"><span>JavaScript (Interactive Engine)</span><span class="text-cyan-400 font-bold">92%</span></div>
                             <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>
                         </div>
-                        <div class="group">
-                            <div class="flex justify-between text-[10px] mb-2">
-                                <span class="text-slate-400 uppercase">Google Apps Script</span>
-                                <span class="text-cyan-400 font-bold">88%</span>
-                            </div>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>
+                        <div>
+                            <div class="flex justify-between text-[9px] mb-1"><span>Database (Postgre/MySQL)</span><span class="text-cyan-400 font-bold">94%</span></div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 94%"></div></div>
                         </div>
-                        <div class="group">
-                            <div class="flex justify-between text-[10px] mb-2">
-                                <span class="text-slate-400 uppercase">IT Maintenance</span>
-                                <span class="text-cyan-400 font-bold">98%</span>
-                            </div>
-                            <div class="skill-bar"><div class="skill-progress" style="width: 98%"></div></div>
+                        <div>
+                            <div class="flex justify-between text-[9px] mb-1"><span>Python / Automation</span><span class="text-cyan-400 font-bold">80%</span></div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
                         </div>
                     </div>
                 </section>
 
                 <section>
-                    <h3 class="text-white font-bold uppercase text-[10px] tracking-widest mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-microchip text-cyan-500"></i> AI_Integration
+                    <h3 class="text-white font-bold uppercase text-[9px] tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-cyan-500"></i> Dev_Environment
                     </h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[9px] rounded uppercase">Stable Diffusion</span>
-                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[9px] rounded uppercase">AI Music Gen</span>
-                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[9px] rounded uppercase">Prompt Engineer</span>
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[8px] rounded uppercase">Godot Engine</span>
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[8px] rounded uppercase">Android Studio</span>
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[8px] rounded uppercase">Stable Diffusion</span>
+                        <span class="px-2 py-1 bg-cyan-500/5 border border-cyan-500/20 text-cyan-400 text-[8px] rounded uppercase">Git / GitHub</span>
                     </div>
                 </section>
 
                 <section>
-                    <h3 class="text-white font-bold uppercase text-[10px] tracking-widest mb-6 flex items-center gap-2">
-                        <i class="fa-solid fa-address-book text-cyan-500"></i> Contact_Interface
+                    <h3 class="text-white font-bold uppercase text-[9px] tracking-widest mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-address-book text-cyan-500"></i> Interface
                     </h3>
-                    <ul class="text-[11px] space-y-4">
-                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[8px] mb-1">Email_Channel</span> Ridhokiswanto01@gmail.com</li>
-                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[8px] mb-1">Emergency_Line</span> 085760363946</li>
-                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[8px] mb-1">Residential_Area</span> Nagrikaler, Purwakarta</li>
+                    <ul class="text-[10px] space-y-4">
+                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[7px] mb-1">Email_Channel</span> Ridhokiswanto01@gmail.com</li>
+                        <li class="flex flex-col"><span class="text-slate-500 uppercase text-[7px] mb-1">Official_Web</span> smkn3linggabuana.sch.id</li>
                     </ul>
                 </section>
             </div>
 
-            <div class="md:col-span-8 p-10 space-y-12">
+            <div class="col-span-8 p-8 space-y-10 text-justify">
                 <section>
-                    <div class="flex items-center gap-4 mb-8">
-                        <h2 class="header-font text-xl font-bold text-white uppercase italic tracking-tighter">Mission_History</h2>
+                    <div class="flex items-center gap-3 mb-6">
+                        <h2 class="header-font text-lg font-bold text-white uppercase italic tracking-tighter">Personnel_Profile</h2>
                         <div class="h-[1px] flex-1 bg-slate-800"></div>
                     </div>
-                    
-                    <div class="space-y-10">
-                        <div class="relative pl-8 border-l-2 border-cyan-500/40">
-                            <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-950 border-2 border-cyan-500 rounded-full"></div>
-                            <h4 class="text-white font-black text-sm uppercase">Operator Layanan Operasional (ASN)</h4>
-                            <p class="text-cyan-500 text-[10px] font-bold tracking-widest mb-4">SMKN 3 Linggabuana Purwakarta</p>
-                            <p class="text-xs text-slate-400 leading-relaxed">
-                                Membangun dan mengelola sistem **Arsip Kurikulum Digital** menggunakan Google Apps Script, HTML, dan CSS. Bertanggung jawab atas pemeliharaan infrastruktur IT dan kearsipan operasional sekolah.
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        Staff Kurikulum dan Arsiparis Digital yang berdedikasi dalam mengelola sistem kearsipan dan website resmi sekolah. Ahli dalam produksi musik AI melalui kanal <span class="text-cyan-400 font-bold">Schluster</span> (Suno/Udio) dan kreator visual menggunakan teknik <span class="text-cyan-400">Strong Prompting Stable Diffusion</span>. Memiliki kegigihan tinggi dalam belajar dan berinovasi, percaya bahwa melalui dedikasi, transformasi besar dapat dicapai.
+                    </p>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <h2 class="header-font text-lg font-bold text-white uppercase italic tracking-tighter">Mission_History</h2>
+                        <div class="h-[1px] flex-1 bg-slate-800"></div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="relative pl-6 border-l border-cyan-500/40">
+                            <div class="absolute -left-[5px] top-0 w-2 h-2 bg-slate-950 border border-cyan-500 rounded-full shadow-[0_0_5px_#06b6d4]"></div>
+                            <h4 class="text-white font-black text-xs uppercase">Operator Layanan Operasional (PPPK Paruh Waktu)</h4>
+                            <p class="text-cyan-500 text-[9px] font-bold mb-2">SMKN 3 Linggabuana Purwakarta // 2021 - Present</p>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">
+                                Membangun infrastruktur **Arsip Kurikulum Digital** yang efisien dengan otomasi **Google Apps Script**. Mengelola website resmi serta optimalisasi sistem automasi kearsipan guna mendukung transparansi data pendidikan.
+                            </p>
+                        </div>
+                        <div class="relative pl-6 border-l border-slate-700">
+                            <div class="absolute -left-[5px] top-0 w-2 h-2 bg-slate-950 border border-slate-500 rounded-full"></div>
+                            <h4 class="text-white font-black text-xs uppercase">Sales Marketing (Electronic Division)</h4>
+                            <p class="text-slate-500 text-[9px] font-bold mb-2">Kredit Plus // 2019 - 2021</p>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">
+                                Berpengalaman selama 3 tahun dalam manajemen target penjualan produk elektronik, negosiasi konsumen, dan pengembangan jaringan dealer.
                             </p>
                         </div>
                     </div>
                 </section>
 
                 <section>
-                    <div class="flex items-center gap-4 mb-8">
-                        <h2 class="header-font text-xl font-bold text-white uppercase italic tracking-tighter">Academic_Vault</h2>
+                    <div class="flex items-center gap-3 mb-6">
+                        <h2 class="header-font text-lg font-bold text-white uppercase italic tracking-tighter">Special_Projects</h2>
                         <div class="h-[1px] flex-1 bg-slate-800"></div>
                     </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="p-5 bg-slate-900/40 rounded-xl border border-slate-800">
-                            <h4 class="text-white text-xs font-bold uppercase">SMA Negeri 1 Panai Hulu</h4>
-                            <p class="text-[9px] text-slate-500 mt-1">CERTIFICATE: DN-07 Ma 0129213</p>
-                            <p class="text-[10px] text-cyan-500 mt-2 font-bold uppercase">Graduated // 2014</p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <h4 class="text-cyan-400 text-[10px] font-bold uppercase italic"><i class="fa-solid fa-gamepad"></i> Game_Development</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Pengembangan game survival menggunakan **Godot Engine** dengan bantuan AI untuk logika sistem yang kompleks.</p>
                         </div>
-                        <div class="p-5 bg-slate-900/40 rounded-xl border border-slate-800">
-                            <h4 class="text-white text-xs font-bold uppercase">SMP Negeri 1 Panai Hulu</h4>
-                            <p class="text-[9px] text-slate-500 mt-1">CERTIFICATE: DN-07 DI 0041032</p>
-                            <p class="text-[10px] text-cyan-500 mt-2 font-bold uppercase">Graduated // 2011</p>
+                        <div class="space-y-2">
+                            <h4 class="text-cyan-400 text-[10px] font-bold uppercase italic"><i class="fa-solid fa-mobile-screen"></i> Mobile_App_Dev</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Implementasi aplikasi mobile melalui **Android Studio** dengan fokus pada fungsionalitas dan skalabilitas sistem.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="text-cyan-400 text-[10px] font-bold uppercase italic"><i class="fa-solid fa-code-branch"></i> Schluster_OS (Web)</h4>
+                            <p class="text-[10px] text-slate-400 leading-tight">Portfolio interaktif berbasis **HTML5, JS, dan Tailwind** dengan sistem navigasi non-linear yang dinamis.</p>
                         </div>
                     </div>
                 </section>
 
                 <section>
-                    <div class="flex items-center gap-4 mb-8">
-                        <h2 class="header-font text-xl font-bold text-white uppercase italic tracking-tighter">Personnel_Traits</h2>
+                    <div class="flex items-center gap-3 mb-6">
+                        <h2 class="header-font text-lg font-bold text-white uppercase italic tracking-tighter">Academic_Vault</h2>
                         <div class="h-[1px] flex-1 bg-slate-800"></div>
                     </div>
-                    <div class="p-6 bg-slate-900/20 rounded-2xl border border-slate-800/50">
-                        <div class="grid grid-cols-3 gap-4 text-center">
-                            <div>
-                                <p class="text-[8px] text-slate-500 uppercase">Height</p>
-                                <p class="text-xs text-white">164 CM</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-cyan-500/5 rounded border border-cyan-500/20">
+                            <h4 class="text-white text-[10px] font-bold uppercase italic">Universitas Terbuka (UT)</h4>
+                            <p class="text-[9px] text-slate-400 mt-1 uppercase font-bold tracking-widest">Active Student // Semester 6</p>
+                            <div class="mt-2 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-cyan-500" style="width: 75%"></div>
                             </div>
-                            <div>
-                                <p class="text-[8px] text-slate-500 uppercase">Weight</p>
-                                <p class="text-xs text-white">58 KG</p>
-                            </div>
-                            <div>
-                                <p class="text-[8px] text-slate-500 uppercase">Skin_Tone</p>
-                                <p class="text-xs text-white">Sawo Matang</p>
-                            </div>
+                        </div>
+                        <div class="p-4 bg-slate-900/40 rounded border border-slate-800">
+                            <h4 class="text-white text-[10px] font-bold uppercase italic">SMAN 1 Panai Hulu</h4>
+                            <p class="text-cyan-500 text-[8px] mt-1 font-bold italic uppercase">Graduated // 2014</p>
                         </div>
                     </div>
                 </section>
             </div>
         </div>
 
-        <footer class="p-8 bg-slate-950/80 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-[9px] text-slate-600 uppercase tracking-widest text-center md:text-left leading-relaxed">
-                "Never stop learning, creating, and evolving."<br>
-                Official Personnel Manifest // Security Level 4 Enabled
+        <footer class="p-6 bg-slate-950 border-t border-slate-800 flex justify-between items-center">
+            <div class="text-[8px] text-slate-600 uppercase tracking-widest italic">
+                "Never stop learning, creating, and evolving."
             </div>
-            <div class="header-font text-xs text-cyan-500 font-bold uppercase tracking-widest">
-                SASMITHA DCS // 2026
-            </div>
+            <div class="header-font text-[9px] text-cyan-500 font-bold uppercase">SASMITHA DCS // 2026</div>
         </footer>
     </div>
 
-    <p class="text-center text-slate-800 text-[9px] mt-10 uppercase tracking-[1em] no-print">
-        AUTHENTIC_DOSSIER_BY_RIDHO_KISWANTO
-    </p>
+    <script>
+        async function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const element = document.getElementById('dossier-main');
+            const btn = document.getElementById('btn-export');
+            btn.innerHTML = 'GENERATING_F4_PDF...';
+            btn.disabled = true;
 
+            try {
+                const canvas = await html2canvas(element, { scale: 3, useCORS: true, backgroundColor: '#020617' });
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: [210, 330] });
+                pdf.addImage(imgData, 'PNG', 0, 0, 210, 330);
+                pdf.save('RIDHO_KISWANTO_DOSSIER.pdf');
+            } catch (e) { console.error(e); }
+            finally { btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> SYNC_TO_LOCAL_STORAGE'; btn.disabled = false; }
+        }
+    </script>
 </body>
 </html>
